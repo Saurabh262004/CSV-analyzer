@@ -10,11 +10,11 @@ document.addEventListener('click', (event) => {
   }
 });
 
-const profileConfigLoadUnload = () => {
-  let
-    profileConfigClassList = $('#profile-config')[0].classList,
-    profileClassList = $('#main-profile')[0].classList;
+var
+  profileConfigClassList = $('#profile-config')[0].classList,
+  profileClassList = $('#main-profile')[0].classList;
 
+const profileConfigLoadUnload = () => {
   if (includes('active', profileConfigClassList)) {
     profileConfigClassList.remove('active');
     profileClassList.remove('active');
