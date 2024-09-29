@@ -18,23 +18,23 @@ GLB_request.onerror = event => {
   console.error(event.target);
 }
 
-// structure of the database
-GLB_request.onupgradeneeded = () => {
-  const db = GLB_request.result;
+// // structure of the database
+// GLB_request.onupgradeneeded = () => {
+//   const db = GLB_request.result;
 
-  // create a store
-  const slots = db.createObjectStore('slots', { keyPath: 'id' });
-  const themes = db.createObjectStore('themes', { keyPath : 'id' });
+//   // create a store
+//   const slots = db.createObjectStore('slots', { keyPath: 'id' });
+//   const themes = db.createObjectStore('themes', { keyPath : 'id' });
 
-  // add indexes
-  slots.createIndex('data', ['title', 'link', 'foundLogo'], { unique: false });
-  themes.createIndex('title', ['title'], { unique : true });
-  themes.createIndex('data', ['primary', 'secondary', 'background', 'accent', 'text'], { unique : false });
+//   // add indexes
+//   slots.createIndex('data', ['title', 'link', 'foundLogo'], { unique: false });
+//   themes.createIndex('title', ['title'], { unique : true });
+//   themes.createIndex('data', ['primary', 'secondary', 'background', 'accent', 'text'], { unique : false });
 
-  slots.oncomplete = () => {
-    db.close();
-  }
-}
+//   slots.oncomplete = () => {
+//     db.close();
+//   }
+// }
 
 GLB_request.onsuccess = () => {
 
