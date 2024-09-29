@@ -7,13 +7,22 @@
   <body>
     <div class="main container" id="main-container">
       <div class="main header" id="main-header">
-        <span></span>
+        <span class="main logo" id="main-logo"></span>
+        <span class="main profile" id="main-profile">
+          <span class="profile config" id="profile-config"></span>
+        </span>
       </div>
-      <div class="main content" id="main-content"></div>
+      <div class="main content" id="main-content">
+        <div class="main controlPanel" id="main-controlPanel"></div>
+        <canvas class="main canvas" id="main-canvas"></canvas>
+      </div>
       <div class="main footer" id="main-footer"></div>
     </div>
   </body>
+  <script type="text/javascript" src="assets/scripts/libraries/jquery-3.7.0.min.js"></script>
+  <script type="text/javascript" src="assets/scripts/libraries/customLibraries/helpers.js"></script>
+  <script type="text/javascript" src="assets/scripts/libraries/customLibraries/ElementsStateTracker.js"></script>
+  <script type="text/javascript" src="assets/scripts/eventManager.js"></script>
+  <script type="text/javascript" src="assets/scripts/libraries/customLibraries/grapher.js"></script>
   <script type="text/javascript" src="assets/scripts/script.js"></script>
-  <script type="text/javascript" src="assets/scripts/libraries/helper.js"></script>
-  <script type="text/javascript" src="assets/scripts/libraries/grapher.js"></script>
 </html>

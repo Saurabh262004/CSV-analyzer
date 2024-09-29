@@ -1,37 +1,106 @@
 :root{
   --screenHeight: 130vh;
+  --contentHeight: 90vh;
+  --controlPanelRatio: 25%;
+  --headerHeight: calc(100vh - var(--contentHeight));
+  --configWidth: 20vw;
+  --footerHeight: calc(var(--screenHeight) - 100vh);
 }
 
 *{padding:0;margin:0;}
+
+*::-webkit-scrollbar{display:none;}
 
 .main.container{
   display: block;
   position: absolute;
   width: 100%;
   height: var(--screenHeight);
-  background-color: #0055aa66;
 }
 
 .main.header{
   display: block;
   position: relative;
   width: 100%;
-  height: 10vh;
-  background-color: #aa550066;
+  height: var(--headerHeight);
+  background-color: #46ca82;
+}
+
+.main.logo{
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: var(--headerHeight);
+  aspect-ratio: 2/1;
+  background-color: #2c63aa;
+  cursor: pointer;
+}
+
+.main.profile{
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: var(--headerHeight);
+  aspect-ratio: 1/1;
+  background-color: #2c63aa;
+  cursor: pointer;
+}
+
+.profile.config{
+  display: block;
+  position: absolute;
+  top: var(--headerHeight);
+  right: calc((var(--configWidth) + var(--headerHeight)) * -1);
+  width: var(--configWidth);
+  height: var(--contentHeight);
+  background-color: #c22ec7;
+  z-index: 9999;
+  transition: ease-out .2s;
+}
+
+.profile.config.active{
+  right: 0;
+  transition: ease-out .2s;
 }
 
 .main.content{
   display: block;
   position: relative;
   width: 100%;
-  height: 90vh;
-  background-color: #aa005566;
+  height: var(--contentHeight);
+}
+
+.main.controlPanel{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--controlPanelRatio);
+  height: var(--contentHeight);
+  background-color: #4ace2293;
+}
+
+.main.canvas{
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(100% - var(--controlPanelRatio));
+  height: var(--contentHeight);
+  background-color: #eeeeee;
+  cursor: grab;
+
+  &:active{
+    cursor: grabbing;
+  }
 }
 
 .main.footer{
   display: block;
   position: relative;
   width: 100%;
-  height: calc(var(--screenHeight) - 100vh);
+  height: var(--footerHeight);
   background-color: #2d2d2d;
 }
