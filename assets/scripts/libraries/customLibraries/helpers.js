@@ -1,3 +1,7 @@
+var
+  profileConfig = $('#profile-config')[0],
+  profile = $('#main-profile')[0];
+
 // change the :root css variable value to the value provided
 const setCSSRootVariable = (variableName, value) => {
   document.documentElement.style.setProperty(`--${variableName}`, value);
@@ -37,6 +41,17 @@ const scrollAnim = (x, y, ms) => {
       clearInterval(scrollInterval);
     }
   }, intervalSpeed);
+}
+
+// adds/removes class name 'active' to profile config window
+const profileConfigLoadUnload = () => {
+  if (includes('active', profile.classList)) {
+    profileConfig.classList.remove('active');
+    profile.classList.remove('active');
+  } else {
+    profileConfig.classList.add('active');
+    profile.classList.add('active');
+  }
 }
 
 // scroll user to and from footer

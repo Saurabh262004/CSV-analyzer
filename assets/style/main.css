@@ -1,5 +1,5 @@
 :root{
-  --screenHeight: 130vh;
+  --screenHeight: 110vh;
   --contentHeight: 90vh;
   --controlPanelRatio: 25%;
   --headerHeight: calc(100vh - var(--contentHeight));
@@ -13,7 +13,7 @@
 
 body{
   height: 100%;
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .main.container{
@@ -113,11 +113,6 @@ body{
   width: calc(100% - var(--controlPanelRatio));
   height: var(--contentHeight);
   background-color: #eeeeee;
-  cursor: grab;
-
-  &:active{
-    cursor: grabbing;
-  }
 }
 
 .graph-container.inner-box{
@@ -147,6 +142,7 @@ body{
   border-bottom-right-radius: 0;
   cursor: pointer;
   z-index: 9999;
+  transition-delay: 1s;
   transition: ease-out .2s;
 }
 
@@ -158,6 +154,7 @@ body{
   border-top-right-radius: 0;
   border-bottom-left-radius: 1vh;
   border-bottom-right-radius: 1vh;
+  transition-delay: 1s;
   transition: ease-out .2s;
 }
 
