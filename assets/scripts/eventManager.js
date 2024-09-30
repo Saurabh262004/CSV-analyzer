@@ -6,7 +6,9 @@ document.addEventListener('click', (event) => {
       break;
     case 'profile-image' : profileConfigLoadUnload();
       break;
-    default : console.log('unlisted click event');
+    case 'main-scroller' : footerScroll();
+    //   break;
+    // default : console.log('unlisted click event');
   }
 });
 
@@ -14,6 +16,7 @@ var
   profileConfigClassList = $('#profile-config')[0].classList,
   profileClassList = $('#main-profile')[0].classList;
 
+// adds/removes class name 'active' to profile config window
 const profileConfigLoadUnload = () => {
   if (includes('active', profileConfigClassList)) {
     profileConfigClassList.remove('active');
