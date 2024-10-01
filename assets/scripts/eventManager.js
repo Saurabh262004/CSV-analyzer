@@ -35,3 +35,7 @@ document.addEventListener('click', (event) => {
   }
 });
 
+// file upload change event
+$('#file-upload-input').change(() => {
+  $('.option.lable._1')[0].innerHTML = $('#file-upload-input')[0].files[0].name;
+});

@@ -1,0 +1,53 @@
+.main.controlPanel{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--controlPanelRatio);
+  height: var(--contentHeight);
+  background-color: #62728f;
+}
+
+.controlPanel.optionsContainer{
+  display: flex;
+  position: absolute;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 60%;
+  top: 0;
+  left: 0;
+}
+
+.controlPanel.option{
+  display: block;
+  position: relative;
+  width: 80%;
+  aspect-ratio: 7/1;
+  background-color: #cacaca8e;
+  border-radius: 1.5vh;
+}
+
+.option.lable{
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5vh;
+  text-align: center;
+  padding-top: 1.1vh;
+  font-size: 2.5vh;
+  cursor: pointer;
+  text-wrap: nowrap;
+  overflow: hidden;
+
+  &:hover{
+    overflow: visible;
+    z-index: 9999;
+  }
+}
+
+.option.input{
+  display: none;
+}

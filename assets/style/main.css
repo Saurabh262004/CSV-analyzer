@@ -1,5 +1,5 @@
 :root{
-  --screenHeight: 110vh;
+  --screenHeight: 115vh;
   --contentHeight: 90vh;
   --controlPanelRatio: 25%;
   --headerHeight: calc(100vh - var(--contentHeight));
@@ -42,67 +42,11 @@ body{
   cursor: pointer;
 }
 
-.main.profile{
-  display: block;
-  position: absolute;
-  right: calc(var(--headerHeight) - var(--configWidth));
-  /* right: 0; */
-  top: 0;
-  height: var(--headerHeight);
-  width: var(--configWidth);
-  background-color: #284872;
-  cursor: pointer;
-  transition: ease-out .2s;
-}
-
-.main.profile.active{
-  right: 0;
-  transition: ease-out .2s;
-}
-
-.profile.image{
-  display: block;
-  position: absolute;
-  top: 10%;
-  left: 3%;
-  height: 80%;
-  aspect-ratio: 1/1;
-  background-color: #3d7228;
-}
-
-.profile.config{
-  display: block;
-  position: absolute;
-  top: var(--headerHeight);
-  right: calc((var(--configWidth) + var(--headerHeight)) * -1);
-  width: var(--configWidth);
-  height: var(--contentHeight);
-  background-color: #2d2d2d;
-  z-index: 9999;
-  transition: ease-out .2s;
-  cursor: auto;
-}
-
-.profile.config.active{
-  right: 0;
-  transition: ease-out .2s;
-}
-
 .main.content{
   display: block;
   position: relative;
   width: 100%;
   height: var(--contentHeight);
-}
-
-.main.controlPanel{
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: var(--controlPanelRatio);
-  height: var(--contentHeight);
-  background-color: #4ace2293;
 }
 
 .main.graph-container{
@@ -115,17 +59,6 @@ body{
   background-color: #eeeeee;
 }
 
-.graph-container.inner-box{
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #414141;
-  z-index: 0;
-}
-
 .main.scroller{
   display: block;
   position: absolute;
@@ -134,6 +67,7 @@ body{
   bottom: var(--footerHeight);
   left: calc((var(--controlPanelRatio) / 2) - 5%);
   color: #eee;
+  font-size: 2.6vh;
   text-align: center;
   background-color: #414141;
   border-top-left-radius: 1vh;

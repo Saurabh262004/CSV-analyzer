@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <title>Data Analyzer</title>
-    <link rel="stylesheet" href="assets/style/main.css">
+    <link rel="stylesheet" href="assets/style/main.css"/>
+    <link rel="stylesheet" href="assets/style/profile.css"/>
+    <link rel="stylesheet" href="assets/style/workplace.css"/>
+    <link rel="stylesheet" href="assets/style/controlPanel.css"/>
   </head>
   <body>
     <div class="main container" id="main-container">
@@ -14,9 +17,33 @@
         </span>
       </div>
       <div class="main content" id="main-content">
-        <div class="main controlPanel" id="main-controlPanel"></div>
+        <div class="main controlPanel" id="main-controlPanel">
+          <div class="controlPanel optionsContainer" id="controlPanel-options-container">
+            <span class="controlPanel option _1" id="upload-file-container">
+              <label for="file-upload-input" class="option lable _1">Upload a data File</label>
+              <input type="file" class="option input _1" id="file-upload-input"/>
+            </span>
+            <span class="controlPanel option _2" id="option2">
+              <label for="input-2" class="option lable _2">option2-lable</label>
+              <input type="button" class="option input _2" id="input-2" onclick="alert('option2')"/>
+            </span>
+            <span class="controlPanel option _3" id="option3">
+              <label for="input-3" class="option lable _3">option3-lable</label>
+              <input type="button" class="option input _3" id="input-3" onclick="alert('option3')"/>
+            </span>
+            <span class="controlPanel option _4" id="option4">
+              <label for="input-4" class="option lable _4">option4-lable</label>
+              <input type="button" class="option input _4" id="input-4" onclick="alert('option4')"/>
+            </span>
+          </div>
+        </div>
         <div class="main graph-container" id="main-graph-container">
-          <div class="graph-container inner-box" id="graph-container-inner-box"></div>
+          <div class="graph-container inner-box" id="graph-container-inner-box">
+            <span class="workplace scroller" id="workplace scroller">
+              <span class="scroller button up" id="workplace-scroller-up"></span>
+              <span class="scroller button down" id="workplace-scroller-down"></span>
+            </span>
+          </div>
         </div>
       </div>
       <span class="main scroller down" id="main-scroller">Down</span>

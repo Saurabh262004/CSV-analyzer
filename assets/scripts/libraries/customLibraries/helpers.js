@@ -1,6 +1,8 @@
-var
+let
   profileConfig = $('#profile-config')[0],
-  profile = $('#main-profile')[0];
+  profile = $('#main-profile')[0],
+  footerScrollSpeed = 200,
+  footerScrollBlocked = false;
 
 // change the :root css variable value to the value provided
 const setCSSRootVariable = (variableName, value) => {
@@ -25,7 +27,7 @@ const setOverflowHiderHeight = () => {
 }
 
 // animate scrolling from one point to another in a linear motion
-const scrollAnim = (x, y, ms) => {
+const scrollAnim = (x, y, ms, callBack) => {
   let
     intervalSpeed = 10,
     intervalPart = 1,
@@ -39,6 +41,7 @@ const scrollAnim = (x, y, ms) => {
 
     if (intervalPart >= totalIntervals) {
       clearInterval(scrollInterval);
+      callBack();
     }
   }, intervalSpeed);
 }
@@ -58,21 +61,22 @@ const profileConfigLoadUnload = () => {
 const footerScroll = () => {
   let
     scroller = $('#main-scroller')[0],
-    // scrollerRects = scroller.getClientRects()[0],
     scrollerClassList = scroller.classList;
 
-  if (includes('down', scrollerClassList)) {
-    scrollAnim(0, $('#main-footer')[0].getClientRects()[0].height, 300);
-    scrollerClassList.remove('down');
-    scrollerClassList.add('up');
-    scroller.innerHTML = 'Up';
-    // scroller.style.setProperty('top', (scrollerRects.top + scrollerRects.height) + 'px');
-  } else {
-    scrollAnim(0, 0, 300);
-    scrollerClassList.add('down');
-    scrollerClassList.remove('up');
-    scroller.innerHTML = 'Down';
-    // scroller.style.setProperty('top', (scrollerRects.top - scrollerRects.height) + 'px');
+  if (!footerScrollBlocked) {
+    if (includes('down', scrollerClassList)) {
+      footerScrollBlocked = true;
+      scrollAnim(0, $('#main-footer')[0].getClientRects()[0].height, footerScrollSpeed, () => {footerScrollBlocked = false});
+      scrollerClassList.remove('down');
+      scrollerClassList.add('up');
+      scroller.innerHTML = 'Up';
+    } else {
+      footerScrollBlocked = true;
+      scrollAnim(0, 0, footerScrollSpeed, () => {footerScrollBlocked = false});
+      scrollerClassList.add('down');
+      scrollerClassList.remove('up');
+      scroller.innerHTML = 'Down';
+    }
   }
 }
 

@@ -1,0 +1,38 @@
+.graph-container.inner-box{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #414141;
+  z-index: 0;
+}
+
+.workplace.scroller{
+  display: block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  /* top: var(--headerHeight); */
+  width: 2.5vh;
+  height: var(--contentHeight);
+  background-color: #bebebe;
+}
+
+.scroller.button{
+  display: block;
+  position: absolute;
+  width: 2.5vh;
+  aspect-ratio: 1/1.3;
+  background-color: #7c3576;
+  cursor: pointer;
+}
+
+.scroller.button.up{
+  top: 0;
+}
+
+.scroller.button.down{
+  bottom: 0;
+}
