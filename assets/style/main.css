@@ -78,6 +78,10 @@ body{
   z-index: 9999;
   transition-delay: 1s;
   transition: ease-out .2s;
+
+  /* &:hover{
+    height: 3vw;
+  } */
 }
 
 .main.scroller.up{
@@ -90,6 +94,11 @@ body{
   border-bottom-right-radius: 1vh;
   transition-delay: 1s;
   transition: ease-out .2s;
+
+  /* &:hover{
+    height: 3vw;
+    bottom: calc(var(--footerHeight) - 3vw);
+  } */
 }
 
 .main.footer{
