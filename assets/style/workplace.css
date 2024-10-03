@@ -4,9 +4,10 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  background-color: #414141;
-  z-index: 0;
+  height: 400%;
+  background: linear-gradient(to bottom, #cbd381, #e06edb);
+  /* background-color: #414141; */
+  z-index: 5;
 }
 
 .workplace.scroller{
@@ -18,6 +19,7 @@
   width: 2.5vh;
   height: var(--contentHeight);
   background-color: #bebebe;
+  z-index: 6;
 }
 
 .scroller.button{
@@ -27,6 +29,7 @@
   aspect-ratio: 1/1.3;
   background-color: #7c3576;
   cursor: pointer;
+  z-index: 7;
 }
 
 .scroller.button.up{

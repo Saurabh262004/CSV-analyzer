@@ -35,12 +35,12 @@ const scrollAnim = (x, y, ms, callBack) => {
     Xstep = (x - window.visualViewport.pageLeft) / totalIntervals,
     Ystep = (y - window.visualViewport.pageTop) / totalIntervals;
 
-  let scrollInterval = window.setInterval(() => {
+  let scrollAnimInterval = window.setInterval(() => {
     window.scrollTo(window.visualViewport.pageLeft + Xstep, window.visualViewport.pageTop + Ystep);
     intervalPart++;
 
     if (intervalPart >= totalIntervals) {
-      clearInterval(scrollInterval);
+      clearInterval(scrollAnimInterval);
       callBack();
     }
   }, intervalSpeed);

@@ -29,6 +29,7 @@ body{
   width: 100%;
   height: var(--headerHeight);
   background-color: #2d2d2d;
+  z-index: 10;
 }
 
 .main.logo{
@@ -107,6 +108,7 @@ body{
   width: 100%;
   height: var(--footerHeight);
   background-color: #2d2d2d;
+  z-index: 10;
 }
 
 .main.overflow-hider{
