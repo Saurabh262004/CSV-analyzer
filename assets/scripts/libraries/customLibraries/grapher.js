@@ -1,11 +1,12 @@
 // converts any csv data into json format
-const csvToJson = (csv, transpose=false, DownloadJSON=false, separator=',') => {
+const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
   if (!csv) {
     console.error("Please provide a csv string")
     return false;
   }
 
   csv = removeChar(csv);
+  csv = removeChar(csv, '\r') + '\n';
   dataJsonArr = [];
 
   // setting up variables to store the data temporarily before putting it all into `dataJsonArr`
@@ -50,7 +51,7 @@ const csvToJson = (csv, transpose=false, DownloadJSON=false, separator=',') => {
         dataArr2D.push(dataArr);
         dataArr = [];
       }
-    } else data+= rawData[i];
+    } else data += rawData[i];
   }
 
   // transpose all the data if the transpose option is selected
@@ -94,9 +95,15 @@ const csvToJson = (csv, transpose=false, DownloadJSON=false, separator=',') => {
       dataJsonArr[i][dataTypesArr[j]] = currentData;
     }
   }
+  dataJsonArr.push({'keys': dataTypesArr});
+
+  if (downloadJSON) {
+    // let link = document.createElement('a');
+    console.log("Sorry but I don't have time to implement this right now.");
+  }
 
   return dataJsonArr;
 }
 
 // graph a given set of data onto an html canvas
-const graph = (canvasID, data, XType, YType, XRange, YRange, graphType) => {}
+const graph = (canvasID, data, XRange, YRange) => {}

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Data Analyzer</title>
+    <title>CSV Analyzer</title>
     <link rel="stylesheet" href="assets/style/main.css"/>
     <link rel="stylesheet" href="assets/style/profile.css"/>
     <link rel="stylesheet" href="assets/style/workplace.css"/>
@@ -13,29 +13,21 @@
         <span class="main logo" id="main-logo"></span>
         <span class="main profile" id="main-profile">
           <span class="profile image" id="profile-image"></span>
-          <span class="profile config" id="profile-config"></span>
+          <span class="profile config" id="profile-config">
+            <span class="config test"></span> <!-- !! TEST !!  -->
+          </span>
         </span>
       </div>
       <div class="main content" id="main-content">
         <div class="main controlPanel" id="main-controlPanel">
-          <div class="controlPanel optionsContainer" id="controlPanel-options-container">
-            <span class="controlPanel option _1" id="upload-file-container">
-              <label for="file-upload-input" class="option lable _1">Upload a data File</label>
-              <input type="file" class="option input _1" id="file-upload-input"/>
-            </span>
-            <span class="controlPanel option _2" id="option2">
-              <label for="input-2" class="option lable _2">option2-lable</label>
-              <input type="button" class="option input _2" id="input-2" onclick="alert('option2')"/>
-            </span>
-            <span class="controlPanel option _3" id="option3">
-              <label for="input-3" class="option lable _3">option3-lable</label>
-              <input type="button" class="option input _3" id="input-3" onclick="alert('option3')"/>
-            </span>
-            <span class="controlPanel option _4" id="option4">
-              <label for="input-4" class="option lable _4">option4-lable</label>
-              <input type="button" class="option input _4" id="input-4" onclick="alert('option4')"/>
-            </span>
-          </div>
+          <span class="fileUpload container" id="fileUpload-container">
+            <label for="fileUpload-input" class="fileUpload label">Upload a data File</label>
+            <input type="file" class="fileUpload input" id="fileUpload-input"/>
+          </span>
+          <span class="dataSetDisplay contianer" id="dataSetDisplay-contianer">
+            <label for="dataSetDisplay" class="dataSetDisplay label">Total no. of datasets :</label>
+            <span class="dataSetDisplay noDisplay" id="dataSetDisplay-noDisplay">0</span>
+          </span>
         </div>
         <div class="main graph-container" id="main-graph-container">
           <div class="graph-container inner-box" id="graph-container-inner-box"></div>
@@ -52,6 +44,7 @@
   </body>
   <script type="text/javascript" src="assets/scripts/libraries/jquery-3.7.0.min.js"></script>
   <script type="text/javascript" src="assets/scripts/helpers.js"></script>
+  <script type="text/javascript" src="assets/scripts/libraries/customLibraries/Custom Alerts/customAlerts.js"></script>
   <script type="text/javascript" src="assets/scripts/interactionHandlers.js"></script>
   <script type="text/javascript" src="assets/scripts/eventManager.js"></script>
   <script type="text/javascript" src="assets/scripts/libraries/customLibraries/grapher.js"></script>

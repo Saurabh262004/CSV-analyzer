@@ -44,3 +44,13 @@
   right: 0;
   transition: ease-out .2s;
 }
+
+.config.test{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  background-color: #6b72288f;
+}

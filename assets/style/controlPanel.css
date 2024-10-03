@@ -8,28 +8,19 @@
   background-color: #62728f;
 }
 
-.controlPanel.optionsContainer{
-  display: flex;
-  position: absolute;
-  flex-flow: row wrap;
-  align-items: center;
-  justify-content: space-evenly;
-  width: 100%;
-  height: 60%;
-  top: 0;
-  left: 0;
-}
-
-.controlPanel.option{
+.fileUpload.container{
   display: block;
   position: relative;
   width: 80%;
   aspect-ratio: 7/1;
+  top: 5%;
+  left: 10%;
+  /* background-color: #d35252; */
   background-color: #cacaca8e;
-  border-radius: 1.5vh;
+  border-radius: 1.2vh;
 }
 
-.option.lable{
+.fileUpload.label{
   display: block;
   position: absolute;
   width: 100%;
@@ -48,6 +39,43 @@
   }
 }
 
-.option.input{
+.fileUpload.input{
   display: none;
+}
+
+.dataSetDisplay.contianer{
+  display: block;
+  position: absolute;
+  width: 80%;
+  aspect-ratio: 7/1;
+  top: 15%;
+  left: 10%;
+  background-color: #cacaca8e;
+  border-radius: 1.2vh;
+}
+
+.dataSetDisplay.label{
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%;
+  height: 100%;
+  padding-top: 1.1vh;
+  font-size: 2.5vh;
+  /* background-color: #ad52b960; */
+  text-align: center;
+}
+
+.dataSetDisplay.noDisplay{
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 100%;
+  padding-top: 1.1vh;
+  font-size: 2.5vh;
+  /* background-color: #6852b960; */
+  text-align: center;
 }
