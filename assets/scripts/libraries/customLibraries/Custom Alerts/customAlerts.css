@@ -45,6 +45,7 @@
   margin-top: 2%;
   width: 90%;
   text-align: center;
+  font-size: var(--alertTextSize);
   max-height: 50%;
   overflow-y: hidden;
   color: var(--textColor);
