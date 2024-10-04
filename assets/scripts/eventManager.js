@@ -77,22 +77,5 @@ document.addEventListener('mouseup', (event) => {
 
 // file upload change event
 $('#fileUpload-input').change(() => {
-  let file = $('#fileUpload-input')[0].files[0];
-
-  if (file.type !== 'text/csv') {
-    customAlert.alert('invalidFileType');
-    console.error("Please upload a .csv file");
-    return false;
-  }
-
-  let reader = new FileReader();
-
-  reader.readAsText(file, 'UTF-8');
-
-  reader.onload = (event) => {
-    $('.fileUpload.label')[0].innerHTML = file.name;
-    jsonData = csvToJson(event.target.result);
-    $('#dataSetDisplay-noDisplay')[0].innerHTML = jsonData.length-1;
-    // console.log(event);
-  };
+  getDataFromInput(checkData);
 });
