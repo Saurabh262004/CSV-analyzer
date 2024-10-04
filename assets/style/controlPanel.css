@@ -15,7 +15,6 @@
   aspect-ratio: 7/1;
   top: 5%;
   left: 10%;
-  /* background-color: #d8c34e; */
   background-color: #cacaca8e;
   border-radius: 1.2vh;
 }
@@ -79,3 +78,16 @@
   /* background-color: #6852b960; */
   text-align: center;
 }
+
+.customizeDataset.container{
+  display: block;
+  position: absolute;
+  top: 25%;
+  left: 10%;
+  width: 80%;
+  aspect-ratio: 1/1;
+  background-color: #cacaca8e;
+  border-radius: 1.2vh;
+}
+
+.

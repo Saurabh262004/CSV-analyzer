@@ -62,7 +62,7 @@ const setupDatasetsAlertBuffer = (result) => {
 
 // setup all the custom alerts
 customAlert.new([25, 20], [37.5, 25], "#d35252", "111", ['ok'], true, 'invalidFileType', '%', 'Pleas upload a .csv file', '3.5vh', test);
-customAlert.new([25, 20], [37.5, 25], "#d8c34e", "111", ['yes', 'no'], true, 'inconsistentData', '%', 'Some datapoints in the datasets are not number.\nWould you still like to continue?', '2.5vh', setupDatasetsAlertBuffer);
+customAlert.new([25, 20], [37.5, 25], "#d8c34e", "111", ['yes', 'no'], true, 'inconsistentData', '%', 'Some datapoints in the datasets are not numbers.\nWould you still like to continue?', '2.5vh', setupDatasetsAlertBuffer);
 
 // customAlert.alert('invalidFileType');
 // customAlert.alert('inconsistentData');
