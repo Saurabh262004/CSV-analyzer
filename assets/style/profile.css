@@ -6,8 +6,8 @@
   top: 0;
   height: var(--headerHeight);
   width: var(--configWidth);
-  background-color: #284872;
-  cursor: pointer;
+  /* background-color: #284872; */
+  /* cursor: pointer; */
   transition: ease-out .2s;
 }
 
@@ -25,6 +25,19 @@
   aspect-ratio: 1/1;
   background-color: #3d7228;
   border-radius: 1vh;
+  cursor: pointer;
+}
+
+.profile.name{
+  display: block;
+  position: absolute;
+  left: calc(var(--headerHeight) + 4%);
+  top: 0;
+  height: 74.5%;
+  padding-top: 6.5%;
+  width: fit-content;
+  font-size: 3vh;
+  pointer-events: none;
 }
 
 .profile.config{

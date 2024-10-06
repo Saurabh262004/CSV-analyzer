@@ -1,9 +1,3 @@
-let
-  profileConfig = $('#profile-config')[0],
-  profile = $('#main-profile')[0],
-  footerScrollSpeed = 200,
-  footerScrollBlocked = false;
-
 // check if a string only contains digits from 0 to 9
 const isNumber = (str) => {
   return /^[0-9]+$/.test(str);

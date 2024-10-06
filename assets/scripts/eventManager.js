@@ -11,13 +11,9 @@ document.addEventListener('keydown', (event) => {
   keyLog[key] = true;
 
   if (keyLog['Control']) {
-    let
-      scroller = $('#main-scroller')[0],
-      profile = $('#main-profile')[0];
-
-    if ((key === 'ArrowDown' && includes('down', scroller.classList)) || (key === 'ArrowUp' && includes('up', scroller.classList))) {
+    if (key === 'ArrowDown') {
       footerScroll();
-    } else if ((key === 'ArrowRight' && !includes('active', profile.classList)) || (key === 'ArrowLeft' && includes('active', profile.classList))) {
+    } else if (key === 'ArrowRight') {
       profileConfigLoadUnload();
     }
   } else if (keyLog['Shift']) {
@@ -48,6 +44,10 @@ document.addEventListener('click', (event) => {
     case 'profile-image' : profileConfigLoadUnload();
       break;
     case 'main-scroller' : footerScroll();
+      break;
+    case 'fileUpload-transpose' : toggleTransposeIndicator();
+      break;
+    case 'transpose-indicator' : toggleTransposeIndicator();
   }
 });
 

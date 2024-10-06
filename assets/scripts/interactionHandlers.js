@@ -1,3 +1,9 @@
+let
+  profileConfig = $('#profile-config')[0],
+  profile = $('#main-profile')[0],
+  footerScrollSpeed = 200,
+  footerScrollBlocked = false;
+
 // animate scrolling from one point to another in a linear motion
 const scrollAnim = (x, y, ms, callBack) => {
   let
@@ -106,5 +112,18 @@ const footerScroll = () => {
       scrollerClassList.remove('up');
       scroller.innerHTML = 'Down';
     }
+  }
+}
+
+// change transpose button states
+const toggleTransposeIndicator = () => {
+  let transposeIndicatorClassList = $('#transpose-indicator')[0].classList;
+
+  if (includes('off', transposeIndicatorClassList)) {
+    transposeIndicatorClassList.remove('off');
+    transposeIndicatorClassList.add('on');
+  } else {
+    transposeIndicatorClassList.remove('on');
+    transposeIndicatorClassList.add('off');
   }
 }

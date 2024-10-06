@@ -14,7 +14,7 @@
   width: 80%;
   aspect-ratio: 7/1;
   top: 5%;
-  left: 10%;
+  left: 2%;
   background-color: #cacaca8e;
   border-radius: 1.2vh;
 }
@@ -42,13 +42,90 @@
   display: none;
 }
 
+.fileUpload.transpose{
+  display: block;
+  position: absolute;
+  width: 10%;
+  aspect-ratio: 1/1;
+  left: 87%;
+  top: 5%;
+  background-color: #cacaca8e;
+  border-radius: 1.2vh;
+  cursor: pointer;
+
+  &:hover > #fileUpload-transpose-label{
+    opacity: 1;
+    top: -80%;
+    transition: ease .15s;
+  }
+
+  &:hover > .transpose.indicator{
+    top: 10%;
+    box-shadow: #161616 0 .7vh .4vh 0;
+    transition: cubic-bezier(0.48,-0.01, 0.55, 0.7) 0.12s;
+  }
+
+  &:active > .transpose.indicator{
+    background-color: #5e5e5e;
+    top: 20%;
+    box-shadow: none;
+    transition: cubic-bezier(0.48,-0.01, 0.55, 0.7) 0.08s;
+  }
+}
+
+#fileUpload-transpose-label{
+  display: block;
+  opacity: 0;
+  position: absolute;
+  top: -50%;
+  left: -180%;
+  width: 300%;
+  height: 70%;
+  text-align: center;
+  transition: ease .15s;
+  font-size: 2.2vh;
+  cursor: pointer;
+}
+
+.transpose.indicator{
+  display: block;
+  position: absolute;
+  width: 60%;
+  aspect-ratio: 1/1;
+  top: 20%;
+  left: 20%;
+  border-radius: 100%;
+  transition: ease .15s;
+
+  &:hover{
+    top: 10%;
+    box-shadow: #161616 0 .7vh .4vh 0;
+    transition: cubic-bezier(0.48,-0.01, 0.55, 0.7) 0.12s;
+  }
+
+  &:active{
+    background-color: #5e5e5e;
+    top: 20%;
+    box-shadow: none;
+    transition: cubic-bezier(0.48,-0.01, 0.55, 0.7) 0.08s;
+  }
+}
+
+.transpose.indicator.off{
+  background-color: #777777;
+}
+
+.transpose.indicator.on{
+  background-color: #9b092d;
+}
+
 .dataSetDisplay.contianer{
   display: block;
   position: absolute;
   width: 80%;
   aspect-ratio: 7/1;
   top: 15%;
-  left: 10%;
+  left: 2%;
   background-color: #cacaca8e;
   border-radius: 1.2vh;
 }
@@ -83,7 +160,7 @@
   display: block;
   position: absolute;
   top: 25%;
-  left: 10%;
+  left: 2%;
   width: 80%;
   aspect-ratio: 1/1;
   background-color: #cacaca8e;

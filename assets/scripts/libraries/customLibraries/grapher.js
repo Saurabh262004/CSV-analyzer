@@ -8,9 +8,9 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
   csv = removeChar(removeChar(csv, ' '), '\r');
   if (csv[csv.length-1] !== '\n') csv += '\n';
 
-  dataJsonArr = [];
+  JSONData = {};
 
-  // setting up variables to store the data temporarily before putting it all into `dataJsonArr`
+  // setting up variables to store the data temporarily before putting it all into `JSONData`
   let
     rawDataTypes = '',
     rawData = '',
@@ -80,11 +80,10 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
     dataArr2D = tDataArr2d;
   }
 
-  let dataNumsLog = []
-  // finally putting all the data into the `dataJsonArr`
+  let includesInconsistentData = false;
+  // finally putting all the data into the `JSONData`
   for (let i = 0; i < dataArr2D.length; i++) {
-    dataJsonArr.push({});
-    dataNumsLog.push(true);
+    JSONData[i] = {};
 
     for (let j = 0; j < dataArr2D[i].length; j++) {
       currentData = dataArr2D[i][j];
@@ -94,20 +93,22 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
       } else if (isStrictFloat(currentData)) {
         currentData = parseFloat(currentData);
       } else {
-        dataNumsLog[i] = false;
+        includesInconsistentData = true;
       }
 
-      dataJsonArr[i][dataTypesArr[j]] = currentData;
+      JSONData[i][dataTypesArr[j]] = currentData;
     }
   }
 
-  dataJsonArr.push({'keys': dataTypesArr, 'totalDatasets': dataJsonArr.length, 'datasetTotalNums': dataNumsLog});
+  JSONData.info = {'keys': dataTypesArr, 'totalDatasets': dataArr2D.length, 'includesInconsistentData': includesInconsistentData};
 
   if (downloadJSON) {
     console.log("Sorry but I don't have time to implement this right now.");
   }
 
-  return dataJsonArr;
+  console.log(JSONData);
+
+  return JSONData;
 }
 
 // graph a given set of data onto an html canvas

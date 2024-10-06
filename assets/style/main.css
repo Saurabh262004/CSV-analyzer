@@ -7,7 +7,12 @@
   --footerHeight: calc(var(--screenHeight) - 100vh);
 }
 
-*{padding:0;margin:0;font-family: 'Segoe UI';}
+*{
+  padding: 0;
+  margin: 0;
+  font-family: 'Segoe UI';
+  user-select: none;
+}
 
 *::-webkit-scrollbar{display:none;}
 
