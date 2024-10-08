@@ -1,9 +1,6 @@
 let
   keyLog = {}, // to track every key if it's presed or not
-  mousedown = false,
-  workplaceScrolling = false,
-  workplaceScrollerFPS = 60, // intervals per second
-  workplaceScrollerSpeed = 8; // pxixels per interval
+  mousedown = false;
 
 // keyboard shortcut controls
 document.addEventListener('keydown', (event) => {
@@ -48,6 +45,10 @@ document.addEventListener('click', (event) => {
     case 'fileUpload-transpose' : toggleTransposeIndicator();
       break;
     case 'transpose-indicator' : toggleTransposeIndicator();
+      break;
+    case 'sortbydata-indicator' : toggleSortByIndicator();
+      break;
+    case 'graphButton-single' : graphSingleSet();
   }
 });
 
@@ -78,4 +79,9 @@ document.addEventListener('mouseup', (event) => {
 // file upload change event
 $('#fileUpload-input').change(() => {
   getDataFromInput(checkData);
+});
+
+// update currentDataIndex everytime dataIndexSelector input changes
+$('#dataIndexSelector-input').change(() => {
+  currentDataIndex = $('#dataIndexSelector-input')[0].value;
 });

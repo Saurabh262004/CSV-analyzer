@@ -25,7 +25,7 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
 
     if (dataSection) rawData += csv[i];
 
-    if (csv[i] == '\n') {
+    if (csv[i] === '\n') {
       getDataTypeLline = false;
       dataSection = true;
     }
@@ -34,9 +34,11 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
   // separating all the datatypes into an array
   let dataType = '';
   for (let i = 0; i < rawDataTypes.length; i++) {
-    if (rawDataTypes[i] == separator || rawDataTypes[i] == '\n') {
-      dataTypesArr.push(dataType);
-      dataType = '';
+    if (rawDataTypes[i] === separator || rawDataTypes[i] === '\n') {
+      if (dataType !== '') {
+        dataTypesArr.push(dataType);
+        dataType = '';
+      }
     } else dataType += rawDataTypes[i];
   }
 
@@ -44,15 +46,35 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
   let data = '';
   let dataArr = [];
   for (let i = 0; i < rawData.length; i++) {
-    if (rawData[i] == separator || rawData[i] == '\n') {
-      dataArr.push(data);
-      data = '';
+    if (rawData[i] === separator || rawData[i] === '\n') {
+      if (data !== '') {
+        dataArr.push(data);
+        data = '';
 
-      if (rawData[i] == '\n') {
-        dataArr2D.push(dataArr);
-        dataArr = [];
+        if (rawData[i] === '\n') {
+          dataArr2D.push(dataArr);
+          dataArr = [];
+        }
       }
     } else data += rawData[i];
+  }
+
+  // check if the file is corrupted
+  let
+    missingDataInstances = 0,
+    nonCategorisedDataInstances = 0;
+  for (let i = 0; i < dataArr2D.length; i++) {
+    if (dataTypesArr.length > dataArr2D[i].length) {
+      missingDataInstances += dataTypesArr.length - dataArr2D[i].length;
+    } else if (dataTypesArr.length < dataArr2D[i].length) {
+      nonCategorisedDataInstances += dataArr2D[i].length - dataTypesArr.length;
+    }
+  }
+
+  if (missingDataInstances > 0 || nonCategorisedDataInstances > 0) {
+    let corruptedFile = new Error(`The provided csv file might be corrupted.\nWe detected ${missingDataInstances} instance(s) of missing data and ${nonCategorisedDataInstances} instance(s) of non categorized data.`);
+    console.error(corruptedFile);
+    return corruptedFile;
   }
 
   // transpose all the data if the transpose option is selected
@@ -80,27 +102,48 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
     dataArr2D = tDataArr2d;
   }
 
-  let includesInconsistentData = false;
   // finally putting all the data into the `JSONData`
+  let includesInconsistentData = false, setLimits = [];
   for (let i = 0; i < dataArr2D.length; i++) {
     JSONData[i] = {};
+    let currentMin = NaN, currentMax = NaN;
 
     for (let j = 0; j < dataArr2D[i].length; j++) {
       currentData = dataArr2D[i][j];
 
-      if (isNumber(currentData)) {
-        currentData = parseInt(currentData);
-      } else if (isStrictFloat(currentData)) {
+      if (isNumber(currentData) || isStrictFloat(currentData)) {
         currentData = parseFloat(currentData);
+
+        if (isNaN(currentMin)) {
+          currentMin = currentData;
+          currentMax = currentData;
+          // console.log(currentMin+'\n'+currentMax);
+        } else {
+          if (currentData < currentMin) {
+            currentMin = currentData;
+          } else if (currentData > currentMax) {
+            currentMax = currentData;
+          }
+        }
       } else {
         includesInconsistentData = true;
       }
 
       JSONData[i][dataTypesArr[j]] = currentData;
     }
+
+    setLimits.push({'min': currentMin, 'max': currentMax});
   }
 
-  JSONData.info = {'keys': dataTypesArr, 'totalDatasets': dataArr2D.length, 'includesInconsistentData': includesInconsistentData};
+  // console.log(dataArr2D);
+
+  JSONData.info = {
+    'keys': dataTypesArr,
+    'totalDatasets': dataArr2D.length,
+    'totalDatatypes': dataTypesArr.length,
+    'includesInconsistentData': includesInconsistentData,
+    'setLimits' : setLimits
+  };
 
   if (downloadJSON) {
     console.log("Sorry but I don't have time to implement this right now.");
@@ -112,4 +155,36 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
 }
 
 // graph a given set of data onto an html canvas
-const graph = (canvasID, data, XRange, YRange) => {}
+const graph = (canvasID, data, XRange, YRange) => {
+  let
+    canvas = $(`#${canvasID}`)[0],
+    ctx = canvas.getContext('2d'),
+    dataArr = [],
+    canvasW = canvas.width,
+    canvasH = canvas.height,
+    XPadding = 50,
+    YPadding = 50,
+    XMultipier = 0,
+    YMultipier = 0;
+
+  if (data instanceof Array) {
+    dataArr = data;
+  } else {
+    keys = Object.keys(data);
+
+    for (let i = 0; i < keys.length; i++) {
+      dataArr.push(data[keys[i]]);
+    }
+  }
+
+  XMultipier = (canvasW - (XPadding * 2)) / (XRange.max - 1);
+  YMultipier = (canvasH - (YPadding * 2)) / difference(YRange.min, YRange.max);
+
+  ctx.strokeStyle = '#000000';
+  ctx.moveTo(0 + XPadding, (canvasH - (((dataArr[0] - YRange.min) * YMultipier) + YPadding)));
+
+  for (let i = 1; i < dataArr.length; i++) {
+    ctx.lineTo((i * XMultipier) + XPadding, (canvasH - (((dataArr[i] - YRange.min) * YMultipier) + YPadding)));
+  }
+  ctx.stroke();
+}

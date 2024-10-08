@@ -30,22 +30,30 @@
             <span class="transpose indicator off" id="transpose-indicator"></span>
           </span>
           <span class="dataSetDisplay contianer" id="dataSetDisplay-contianer">
-            <label for="dataSetDisplay" class="dataSetDisplay label">Total no. of datasets :</label>
+            <label for="dataSetDisplay" class="dataSetDisplay label">No. of datasets :</label>
             <span class="dataSetDisplay noDisplay" id="dataSetDisplay-noDisplay">0</span>
           </span>
+          <span class="sortbydata" id="sortbydata-indicator">Sort By Sets</span>
           <span class="customizeDataset container" id="customizeDataset container">
-            <span class="datasetSelector container" id="datasetSelector-container"></span>
-            <label for="dimLimits-container" id="dimLimits label"><!--X and Y Limits:--></label>
+            <span class="dataIndexSelector">
+              Set Data Index: <input class="dataIndex input" id="dataIndexSelector-input" type="number" min="1" max="1"/>
+            </span>
+            <span class="preview button btntyp1" id="preview-button">Preview</span>
+            <span class="graphButton single btntyp1" id="graphButton-single">Graph</span>
+            <!-- <span class="datasetSelector container" id="datasetSelector-container"></span>
+            <label for="dimLimits-container" id="dimLimits label">X and Y Limits:</label>
             <span class="dimLimits container" id="dimLimits-container">
               <span class="limitText xMin" id="limitText-xMin"></span>
               <span class="limitText xMax" id="limitText-xMax"></span>
               <span class="limitText yMin" id="limitText-yMin"></span>
               <span class="limitText yMax" id="limitText-yMax"></span>
-            </span>
+            </span> -->
           </span>
         </div>
         <div class="main graph-container" id="main-graph-container">
-          <div class="graph-container inner-box" id="graph-container-inner-box"></div>
+          <div class="graph-container inner-box" id="graph-container-inner-box">
+            <canvas class="graphCanvas 1" id="graphCanvas-1"></canvas>
+          </div>
           <span class="workplace scroller" id="workplace scroller">
             <span class="scroller button up" id="workplace-scroller-up"></span>
             <span class="scroller button down" id="workplace-scroller-down"></span>
@@ -58,6 +66,7 @@
     <div class="main overflow-hider" id="main-overflow-hider"></div>
   </body>
   <script type="text/javascript" src="assets/scripts/libraries/jquery-3.7.0.min.js"></script>
+  <!-- <script type="text/javascript" src="assets/scripts/libraries/p5.min.js"></script> -->
   <script type="text/javascript" src="assets/scripts/helpers.js"></script>
   <script type="text/javascript" src="assets/scripts/libraries/customLibraries/Custom Alerts/customAlerts.js"></script>
   <script type="text/javascript" src="assets/scripts/libraries/customLibraries/grapher.js"></script>

@@ -1,8 +1,13 @@
 let
   profileConfig = $('#profile-config')[0],
   profile = $('#main-profile')[0],
-  footerScrollSpeed = 200,
-  footerScrollBlocked = false;
+  footerScrollSpeed = 200, // in ms
+  footerScrollBlocked = false,
+  workplaceScrolling = false,
+  workplaceScrollerFPS = 60, // intervals per second
+  workplaceScrollerSpeed = 4; // pxixels per interval
+  sortbydata = 'sets',
+  dataLoaded = false;
 
 // animate scrolling from one point to another in a linear motion
 const scrollAnim = (x, y, ms, callBack) => {
@@ -125,5 +130,86 @@ const toggleTransposeIndicator = () => {
   } else {
     transposeIndicatorClassList.remove('on');
     transposeIndicatorClassList.add('off');
+  }
+}
+
+// change the sorting of datasets between types/sets
+const toggleSortByIndicator = () => {
+  let
+    indicator = $('#sortbydata-indicator')[0],
+    datasetNoDisplay = $('#dataSetDisplay-noDisplay')[0],
+    datasetInput = $('#dataIndexSelector-input')[0],
+    totalData = 0;
+
+  if (sortbydata === 'sets') {
+    if (dataLoaded) {
+      totalData = currentLoadedData.info.totalDatatypes;
+    }
+
+    indicator.innerHTML = 'Sort By Types';
+    sortbydata = 'types';
+  } else {
+    if (dataLoaded) {
+      totalData = currentLoadedData.info.totalDatasets;
+    }
+    
+    indicator.innerHTML = 'Sort By Sets';
+    sortbydata = 'sets';
+  }
+
+  if (dataLoaded) {
+    datasetNoDisplay.innerHTML = totalData;
+    datasetInput.max = totalData;
+    datasetInput.value = 1;
+    currentDataIndex = 1;
+  }
+}
+
+// order a graph of a single set of data chosen by the user
+const graphSingleSet = (canvasID = 'graphCanvas-1', dataIndex = currentDataIndex) => {
+  if (dataLoaded) {
+    let
+      dataset,
+      x = dataIndex - 1,
+      keys = currentLoadedData.info.keys,
+      setLimits = currentLoadedData.info.setLimits,
+      currentLimits,
+      dataLength = 0;
+
+    if (sortbydata === 'sets') {
+      dataset = currentLoadedData[x];
+      dataLength = currentLoadedData.info.totalDatatypes;
+      currentLimits = setLimits[x];
+    } else {
+      dataset = [];
+
+      let min = NaN, max = NaN;
+
+      for (let i = 0; i < currentLoadedData.info.totalDatasets; i++) {
+        currentValue = currentLoadedData[i][keys[x]];
+        dataset.push(currentValue);
+
+        if (typeof currentValue === 'number') {
+          if (isNaN(min)) {
+            min = currentValue;
+            max = currentValue;
+          } else {
+            if (currentValue > max) {
+              max = currentValue;
+            } else if (currentValue < min) {
+              min = currentValue;
+            }
+          }
+        }
+      }
+
+      currentLimits = {'min': min, 'max': max};
+      dataLength = currentLoadedData.info.totalDatasets;
+    }
+
+    graph(canvasID, dataset, {'min': 0, 'max': dataLength}, currentLimits);
+  } else {
+    console.error("No data has been loaded to graph");
+    return false;
   }
 }

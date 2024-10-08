@@ -13,10 +13,14 @@
   position: relative;
   width: 80%;
   aspect-ratio: 7/1;
-  top: 5%;
-  left: 2%;
+  top: 3%;
+  left: 3%;
   background-color: #cacaca8e;
   border-radius: 1.2vh;
+
+  &:hover{
+    background-color: #aaaaaa8e;
+  }
 }
 
 .fileUpload.label{
@@ -47,22 +51,16 @@
   position: absolute;
   width: 10%;
   aspect-ratio: 1/1;
-  left: 87%;
-  top: 5%;
+  right: 3%;
+  top: 3.2%;
   background-color: #cacaca8e;
   border-radius: 1.2vh;
   cursor: pointer;
 
   &:hover > #fileUpload-transpose-label{
     opacity: 1;
-    top: -80%;
+    top: -60%;
     transition: ease .15s;
-  }
-
-  &:hover > .transpose.indicator{
-    top: 10%;
-    box-shadow: #161616 0 .7vh .4vh 0;
-    transition: cubic-bezier(0.48,-0.01, 0.55, 0.7) 0.12s;
   }
 
   &:active > .transpose.indicator{
@@ -92,16 +90,11 @@
   position: absolute;
   width: 60%;
   aspect-ratio: 1/1;
-  top: 20%;
+  top: 12%;
   left: 20%;
   border-radius: 100%;
   transition: ease .15s;
-
-  &:hover{
-    top: 10%;
-    box-shadow: #161616 0 .7vh .4vh 0;
-    transition: cubic-bezier(0.48,-0.01, 0.55, 0.7) 0.12s;
-  }
+  box-shadow: #161616 0 .5vh .4vh 0;
 
   &:active{
     background-color: #5e5e5e;
@@ -116,16 +109,18 @@
 }
 
 .transpose.indicator.on{
-  background-color: #9b092d;
+  background-color: #368b52;
+  /* background-color: #9b092d; */
 }
 
 .dataSetDisplay.contianer{
   display: block;
   position: absolute;
-  width: 80%;
-  aspect-ratio: 7/1;
-  top: 15%;
-  left: 2%;
+  width: 50%;
+  height: 5%;
+  top: 12%;
+  left: 3%;
+  padding-top: 1vh;
   background-color: #cacaca8e;
   border-radius: 1.2vh;
 }
@@ -137,7 +132,7 @@
   left: 0;
   width: 80%;
   height: 100%;
-  padding-top: 1.1vh;
+  padding-top: 1vh;
   font-size: 2.5vh;
   /* background-color: #ad52b960; */
   text-align: center;
@@ -148,21 +143,105 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 45%;
+  width: 30%;
   height: 100%;
-  padding-top: 1.1vh;
+  padding-top: 1vh;
   font-size: 2.5vh;
   /* background-color: #6852b960; */
   text-align: center;
 }
 
+.sortbydata{
+  display: block;
+  position: absolute;
+  top: 12%;
+  right: 3%;
+  width: 30%;
+  height: 4.7%;
+  padding-top: 1vh;
+  background-color: #cacaca8e;
+  font-size: 2.3vh;
+  text-align: center;
+  border-radius: 1.2vh;
+  cursor: pointer;
+
+  &:hover{
+    background-color: #aaaaaa8e;
+  }
+}
+
 .customizeDataset.container{
   display: block;
   position: absolute;
-  top: 25%;
-  left: 2%;
-  width: 80%;
+  top: 22%;
+  left: 4%;
+  width: 92%;
   aspect-ratio: 1/1;
   background-color: #cacaca8e;
   border-radius: 1.2vh;
+}
+
+.dataIndexSelector{
+  display: block;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  height: 10%;
+  width: 60%;
+  background-color: #414141;
+  padding-top: 1vh;
+  color: #eee;
+  font-size: 2.3vh;
+  text-indent: 4%;
+  border-radius: 1vh;
+}
+
+.dataIndex.input{
+  display: block;
+  position: absolute;
+  border: none;
+  width: 30%;
+  height: 60%;
+  top: 20%;
+  right: 5%;
+  text-indent: 20%;
+  border-radius: .6vh;
+
+  &:focus-visible{
+    outline: none;
+  }
+}
+
+.btntyp1{
+  display: block;
+  position: absolute;
+  right: 5%;
+  width: 25%;
+  height: 10%;
+  padding-top: 1vh;
+  font-size: 2.3vh;
+  text-align: center;
+  background-color: #414141;
+  color: #eee;
+  border-radius: 1vh;
+  cursor: pointer;
+  transition: ease .2s;
+
+  &:hover{
+    box-shadow: #414141 0 0 .3vh .2vh;
+  }
+
+  &:active{
+    box-shadow: #555555 0 0 .5vh .2vh;
+    background-color: #555555;
+    transition: linear .05s;
+  }
+}
+
+.preview.button{
+  top: 5%;
+}
+
+.graphButton.single{
+  bottom: 5%;
 }

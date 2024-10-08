@@ -88,6 +88,24 @@ const includes = (element, array) => {
   return false;
 }
 
+const min = (a, b) => {
+  if (a < b) {
+    return a;
+  }
+  return b;
+}
+
+const max = (a, b) => {
+  if (a > b) {
+    return a;
+  }
+  return b;
+}
+
+const difference = (a, b) => {
+  return Math.abs(a - b);
+}
+
 // redirect user to the given url
 const goToURL = (url) => {
   window.location.href = url;
