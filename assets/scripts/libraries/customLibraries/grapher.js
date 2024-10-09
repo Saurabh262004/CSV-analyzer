@@ -154,6 +154,72 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
   return JSONData;
 }
 
+// Cubic spline interpolation function
+const cubicSpline = (x, y) => {
+  let
+    n = x.length - 1,
+    h = new Array(n),
+    alpha = new Array(n + 1).fill(0);
+
+  for (let i = 0; i < n; i++) {
+    h[i] = x[i + 1] - x[i];
+  }
+
+  for (let i = 1; i < n; i++) {
+    alpha[i] = (3 / h[i] * (y[i + 1] - y[i])) - (3 / h[i - 1] * (y[i] - y[i - 1]));
+  }
+
+  let
+    l = new Array(n + 1).fill(0),
+    mu = new Array(n + 1).fill(0),
+    z = new Array(n + 1).fill(0);
+
+  l[0] = 1;
+  mu[0] = 0;
+  z[0] = 0;
+
+  for (let i = 1; i < n; i++) {
+    l[i] = 2 * (x[i + 1] - x[i - 1]) - h[i - 1] * mu[i - 1];
+    mu[i] = h[i] / l[i];
+    z[i] = (alpha[i] - h[i - 1] * z[i - 1]) / l[i];
+  }
+
+  l[n] = 1;
+  z[n] = 0;
+
+  let
+    a = y.slice(0, n),
+    b = new Array(n).fill(0),
+    c = new Array(n + 1).fill(0),
+    d = new Array(n).fill(0);
+
+  for (let j = n - 1; j >= 0; j--) {
+    c[j] = z[j] - mu[j] * c[j + 1];
+    b[j] = (y[j + 1] - y[j]) / h[j] - h[j] * (c[j + 1] + 2 * c[j]) / 3;
+    d[j] = (c[j + 1] - c[j]) / (3 * h[j]);
+  }
+
+  return { a, b, c, d, x };
+}
+
+// Evaluate the spline at new points
+const evaluateSpline = (a, b, c, d, x, XEval) => {
+  let YEval = [];
+
+  for (let X of XEval) {
+    for (let i = 0; i < x.length - 1; i++) {
+      if (x[i] <= X && X <= x[i + 1]) {
+        let dx = X - x[i];
+        let Y = a[i] + b[i] * dx + c[i] * dx * dx + d[i] * dx * dx * dx;
+        YEval.push(Y);
+        break;
+      }
+    }
+  }
+
+  return YEval;
+}
+
 // graph a given set of data onto an html canvas
 const graph = (canvasID, data, XRange, YRange) => {
   let
@@ -178,13 +244,46 @@ const graph = (canvasID, data, XRange, YRange) => {
   }
 
   XMultipier = (canvasW - (XPadding * 2)) / (XRange.max - 1);
-  YMultipier = (canvasH - (YPadding * 2)) / difference(YRange.min, YRange.max);
+  YMultipier = (canvasH - (YPadding * 2)) / (difference(YRange.min, YRange.max) + 1);
+  console.log(dataArr);
+  console.log(YRange.max, YRange.min)
+  // YMultipier = (canvasH - (YPadding * 2)) / difference(YRange.min, YRange.max);
+
+  // let XValues = [];
+  let convertedCords = [], XValues = [];
+
+  for (let i = 0; i < dataArr.length; i++) {
+    convertedCords.push((canvasH - (((dataArr[i] - YRange.min) * YMultipier) + YPadding)));
+    XValues.push((i * XMultipier) + XPadding);
+  }
+
+  let x = XValues, y = convertedCords;
+
+  let {a, b, c, d, x: XPoints} = cubicSpline(x, y);
+
+  let
+    XEval = [],
+    minX = Math.min(...x),
+    maxX = Math.max(...x),
+    numPoints = 1000;
+
+  for (let i = 0; i <= numPoints; i++) {
+    XEval.push(minX + (i * (maxX - minX)) / numPoints);
+  }
+
+  let YEval = evaluateSpline(a, b, c, d, XPoints, XEval);
+
+  ctx.fillStyle = '#bebebe';
+  ctx.fillRect(0, 0, canvasW, canvasH);
 
   ctx.strokeStyle = '#000000';
-  ctx.moveTo(0 + XPadding, (canvasH - (((dataArr[0] - YRange.min) * YMultipier) + YPadding)));
+  ctx.beginPath();
+  ctx.moveTo(XEval[0], YEval[0]);
 
-  for (let i = 1; i < dataArr.length; i++) {
-    ctx.lineTo((i * XMultipier) + XPadding, (canvasH - (((dataArr[i] - YRange.min) * YMultipier) + YPadding)));
+  for (let i = 1; i < YEval.length; i++) {
+    ctx.lineTo(XEval[i], YEval[i]);
   }
+
   ctx.stroke();
+  ctx.closePath();
 }

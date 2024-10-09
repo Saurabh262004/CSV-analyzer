@@ -11,7 +11,7 @@ const test = (a) => {
   console.log(a);
 }
 
-const getDataFromInput = (callback, callbackParams=false) => {
+const getDataFromInput = (callback, callbackParams=undefined) => {
   let file = $('#fileUpload-input')[0].files[0];
 
   let reader = new FileReader();
