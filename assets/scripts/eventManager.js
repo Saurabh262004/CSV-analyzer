@@ -49,6 +49,8 @@ document.addEventListener('click', (event) => {
     case 'sortbydata-indicator' : toggleSortByIndicator();
       break;
     case 'graphButton-single' : graphSingleSet();
+      break;
+    case 'downloadJson-button' : downloadJsonData(currentLoadedData, 2);
   }
 });
 

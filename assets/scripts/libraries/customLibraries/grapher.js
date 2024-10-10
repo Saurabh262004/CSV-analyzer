@@ -162,11 +162,11 @@ const cubicSpline = (x, y) => {
     alpha = new Array(n + 1).fill(0);
 
   for (let i = 0; i < n; i++) {
-    h[i] = x[i + 1] - x[i];
+    h[i] = x[i+1] - x[i];
   }
 
   for (let i = 1; i < n; i++) {
-    alpha[i] = (3 / h[i] * (y[i + 1] - y[i])) - (3 / h[i - 1] * (y[i] - y[i - 1]));
+    alpha[i] = (3 / h[i] * (y[i+1] - y[i])) - (3 / h[i - 1] * (y[i] - y[i-1]));
   }
 
   let
@@ -179,9 +179,9 @@ const cubicSpline = (x, y) => {
   z[0] = 0;
 
   for (let i = 1; i < n; i++) {
-    l[i] = 2 * (x[i + 1] - x[i - 1]) - h[i - 1] * mu[i - 1];
+    l[i] = 2 * (x[i+1] - x[i-1]) - h[i-1] * mu[i-1];
     mu[i] = h[i] / l[i];
-    z[i] = (alpha[i] - h[i - 1] * z[i - 1]) / l[i];
+    z[i] = (alpha[i] - h[i-1] * z[i-1]) / l[i];
   }
 
   l[n] = 1;
@@ -194,12 +194,12 @@ const cubicSpline = (x, y) => {
     d = new Array(n).fill(0);
 
   for (let j = n - 1; j >= 0; j--) {
-    c[j] = z[j] - mu[j] * c[j + 1];
-    b[j] = (y[j + 1] - y[j]) / h[j] - h[j] * (c[j + 1] + 2 * c[j]) / 3;
-    d[j] = (c[j + 1] - c[j]) / (3 * h[j]);
+    c[j] = z[j] - mu[j] * c[j+1];
+    b[j] = (y[j+1] - y[j]) / h[j] - h[j] * (c[j+1] + 2 * c[j]) / 3;
+    d[j] = (c[j+1] - c[j]) / (3 * h[j]);
   }
 
-  return { a, b, c, d, x };
+  return {a, b, c, d, x};
 }
 
 // Evaluate the spline at new points
@@ -208,7 +208,7 @@ const evaluateSpline = (a, b, c, d, x, XEval) => {
 
   for (let X of XEval) {
     for (let i = 0; i < x.length - 1; i++) {
-      if (x[i] <= X && X <= x[i + 1]) {
+      if (x[i] <= X && X <= x[i+1]) {
         let dx = X - x[i];
         let Y = a[i] + b[i] * dx + c[i] * dx * dx + d[i] * dx * dx * dx;
         YEval.push(Y);
@@ -228,11 +228,10 @@ const graph = (canvasID, data, XRange, YRange) => {
     dataArr = [],
     canvasW = canvas.width,
     canvasH = canvas.height,
-    XPadding = 50,
-    YPadding = 50,
-    XMultipier = 0,
-    YMultipier = 0;
+    XPadding = canvasH/10,
+    YPadding = canvasH/10;
 
+  // store given data in array
   if (data instanceof Array) {
     dataArr = data;
   } else {
@@ -243,47 +242,61 @@ const graph = (canvasID, data, XRange, YRange) => {
     }
   }
 
-  XMultipier = (canvasW - (XPadding * 2)) / (XRange.max - 1);
-  YMultipier = (canvasH - (YPadding * 2)) / (difference(YRange.min, YRange.max) + 1);
-  console.log(dataArr);
-  console.log(YRange.max, YRange.min)
-  // YMultipier = (canvasH - (YPadding * 2)) / difference(YRange.min, YRange.max);
-
-  // let XValues = [];
-  let convertedCords = [], XValues = [];
+  // setup x, y co-ordinates and calculate a spline
+  let x = [], y = dataArr;
 
   for (let i = 0; i < dataArr.length; i++) {
-    convertedCords.push((canvasH - (((dataArr[i] - YRange.min) * YMultipier) + YPadding)));
-    XValues.push((i * XMultipier) + XPadding);
+    if (YRange.min <= 0) {
+      y[i] += Math.abs(YRange.min) + 1;
+    }
+    x.push(i + 1);
   }
-
-  let x = XValues, y = convertedCords;
 
   let {a, b, c, d, x: XPoints} = cubicSpline(x, y);
 
   let
     XEval = [],
-    minX = Math.min(...x),
-    maxX = Math.max(...x),
+    minX = XRange.min,
+    maxX = XRange.max,
     numPoints = 1000;
 
-  for (let i = 0; i <= numPoints; i++) {
+  for (let i = 0; i < numPoints; i++) {
     XEval.push(minX + (i * (maxX - minX)) / numPoints);
   }
 
-  let YEval = evaluateSpline(a, b, c, d, XPoints, XEval);
+  let
+    YEval = evaluateSpline(a, b, c, d, XPoints, XEval),
+    YL = Math.min(...YEval),
+    YH = Math.max(...YEval),
+    XL = Math.min(...XEval),
+    XH = Math.max(...XEval);
 
-  ctx.fillStyle = '#bebebe';
+  for (let i = 0; i < YEval.length; i++) {
+    YEval[i] = map(YEval[i], YL, YH, canvasH - YPadding, YPadding);
+    XEval[i] = map(XEval[i], XL, XH, XPadding, canvasW - XPadding);
+  }
+
+  // clear canvas
+  ctx.fillStyle = '#eeeeee';
   ctx.fillRect(0, 0, canvasW, canvasH);
 
+  // setup new path
+  ctx.fillStyle = '#a15b5b';
   ctx.strokeStyle = '#000000';
   ctx.beginPath();
-  ctx.moveTo(XEval[0], YEval[0]);
 
+  // draw axis
+  ctx.moveTo(XPadding, 0);
+  ctx.lineTo(XPadding, canvasH);
+  ctx.moveTo(0, canvasH - YPadding);
+  ctx.lineTo(canvasW, canvasH - YPadding);
+
+  // draw data
+  ctx.moveTo(XEval[0], YEval[0]);
   for (let i = 1; i < YEval.length; i++) {
     ctx.lineTo(XEval[i], YEval[i]);
+    ctx.fillRect(XEval[i-1], YEval[i-1], XEval[i] - XEval[i-1], (canvasH - YEval[i-1]) - YPadding);
   }
 
   ctx.stroke();
-  ctx.closePath();
 }

@@ -209,7 +209,25 @@ const graphSingleSet = (canvasID = 'graphCanvas-1', dataIndex = currentDataIndex
 
     graph(canvasID, dataset, {'min': 0, 'max': dataLength}, currentLimits);
   } else {
-    console.error("No data has been loaded to graph");
+    console.error('No data has been loaded to graph');
     return false;
   }
+}
+
+// download a given object as a json file
+const downloadJsonData = (jsonData, indent=0) => {
+  if (typeof jsonData !== 'object') {
+    console.error('Provided variable is not of type "object"');
+    return false;
+  }
+
+  let blob = new Blob([JSON.stringify(jsonData, null, indent)], {type: 'application/json'});
+  let link = document.createElement('a');
+
+  link.download = 'data.json';
+  link.href = window.URL.createObjectURL(blob);
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }

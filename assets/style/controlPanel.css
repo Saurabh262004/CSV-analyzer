@@ -65,6 +65,7 @@
 
   &:active > .transpose.indicator{
     background-color: #5e5e5e;
+    /* background-color: #be6e6e; */
     top: 20%;
     box-shadow: none;
     transition: cubic-bezier(0.48,-0.01, 0.55, 0.7) 0.08s;
@@ -215,10 +216,6 @@
 .btntyp1{
   display: block;
   position: absolute;
-  right: 5%;
-  width: 25%;
-  height: 10%;
-  padding-top: 1vh;
   font-size: 2.3vh;
   text-align: center;
   background-color: #414141;
@@ -240,8 +237,24 @@
 
 .preview.button{
   top: 5%;
+  right: 5%;
+  width: 25%;
+  height: 10%;
+  padding-top: 1vh;
 }
 
 .graphButton.single{
   bottom: 5%;
+  right: 5%;
+  width: 25%;
+  height: 10%;
+  padding-top: 1vh;
+}
+
+.downloadJson.button{
+  bottom: 17%;
+  left: 4%;
+  width: 35%;
+  height: 5%;
+  padding-top: 1vh;
 }
