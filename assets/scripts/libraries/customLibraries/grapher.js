@@ -154,7 +154,7 @@ const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
   return JSONData;
 }
 
-// Cubic spline interpolation function
+// interpolate cubic spline by given x, y co-ordinate list
 const cubicSpline = (x, y) => {
   let
     n = x.length - 1,
@@ -202,7 +202,7 @@ const cubicSpline = (x, y) => {
   return {a, b, c, d, x};
 }
 
-// Evaluate the spline at new points
+// evaluate the spline at new points
 const evaluateSpline = (a, b, c, d, x, XEval) => {
   let YEval = [];
 
@@ -226,10 +226,14 @@ const graph = (canvasID, data, XRange, YRange) => {
     canvas = $(`#${canvasID}`)[0],
     ctx = canvas.getContext('2d'),
     dataArr = [],
+    minX = XRange.min,
+    maxX = XRange.max,
+    minY = YRange.min,
+    maxY = YRange.max,
     canvasW = canvas.width,
     canvasH = canvas.height,
-    XPadding = canvasH/10,
-    YPadding = canvasH/10;
+    XPadding = canvasH/8.5,
+    YPadding = canvasH/8.5;
 
   // store given data in array
   if (data instanceof Array) {
@@ -246,8 +250,8 @@ const graph = (canvasID, data, XRange, YRange) => {
   let x = [], y = dataArr;
 
   for (let i = 0; i < dataArr.length; i++) {
-    if (YRange.min <= 0) {
-      y[i] += Math.abs(YRange.min) + 1;
+    if (minY <= 0) {
+      y[i] += Math.abs(minY) + 1;
     }
     x.push(i + 1);
   }
@@ -256,8 +260,6 @@ const graph = (canvasID, data, XRange, YRange) => {
 
   let
     XEval = [],
-    minX = XRange.min,
-    maxX = XRange.max,
     numPoints = 1000;
 
   for (let i = 0; i < numPoints; i++) {
@@ -277,12 +279,12 @@ const graph = (canvasID, data, XRange, YRange) => {
   }
 
   // clear canvas
-  ctx.fillStyle = '#eeeeee';
+  ctx.fillStyle = '#eee';
   ctx.fillRect(0, 0, canvasW, canvasH);
 
   // setup new path
-  ctx.fillStyle = '#a15b5b';
-  ctx.strokeStyle = '#000000';
+  ctx.fillStyle = '#000';
+  ctx.strokeStyle = '#000';
   ctx.beginPath();
 
   // draw axis
@@ -291,8 +293,28 @@ const graph = (canvasID, data, XRange, YRange) => {
   ctx.moveTo(0, canvasH - YPadding);
   ctx.lineTo(canvasW, canvasH - YPadding);
 
+  // draw Y axis text
+  ctx.font = '20px courier';
+
+  let
+    totalAxisIntervals = 10,
+    YAxisStep = (maxY - minY) / totalAxisIntervals,
+    heightStep = (canvasH - (YPadding * 2)) / totalAxisIntervals;
+
+  for (let i = 0; i <= totalAxisIntervals; i++) {
+    let currentText = (minY + (YAxisStep * i)).toFixed(1);
+
+    if (maxY - minY >= 10) {
+      currentText = parseInt(currentText);
+    }
+
+    ctx.fillText(currentText, XPadding - (currentText.toString().length * 15), ((canvasH - YPadding) - (heightStep * i)) + 20);
+    console.log(currentText.toString());
+  }
+
   // draw data
   ctx.moveTo(XEval[0], YEval[0]);
+  ctx.fillStyle = '#a15b5b';
   for (let i = 1; i < YEval.length; i++) {
     ctx.lineTo(XEval[i], YEval[i]);
     ctx.fillRect(XEval[i-1], YEval[i-1], XEval[i] - XEval[i-1], (canvasH - YEval[i-1]) - YPadding);

@@ -88,10 +88,6 @@ const includes = (element, array) => {
   return false;
 }
 
-const difference = (a, b) => {
-  return Math.abs(a - b);
-}
-
 // map a number from one range to another
 const map = (n, sl, sh, rl, rh) => {
   return rl + ((n - sl) / (sh - sl)) * (rh - rl);
