@@ -7,7 +7,8 @@ let
   workplaceScrollerFPS = 60, // intervals per second
   workplaceScrollerSpeed = 4; // pxixels per interval
   sortbydata = 'sets',
-  dataLoaded = false;
+  dataLoaded = false,
+  dataSetsLength = 0;
 
 // animate scrolling from one point to another in a linear motion
 const scrollAnim = (x, y, ms, callBack) => {
@@ -41,7 +42,7 @@ const profileConfigLoadUnload = () => {
 }
 
 // handle scrolling up or down in the workplace
-const scrollWorkplace = (direction) => {
+const scrollWorkplace = (direction, speedMultiplier=1) => {
   if (direction === 'up') {
     workplaceScrolling = true;
 
@@ -59,7 +60,7 @@ const scrollWorkplace = (direction) => {
         workplace.style.setProperty('top', `0`);
         workplaceScrolling = false;
       } else {
-        workplace.style.setProperty('top', `${(workplaceTop - headerHeight) + workplaceScrollerSpeed}px`);
+        workplace.style.setProperty('top', `${(workplaceTop - headerHeight) + (workplaceScrollerSpeed * speedMultiplier)}px`);
       }
 
       if (!workplaceScrolling) {
@@ -85,7 +86,7 @@ const scrollWorkplace = (direction) => {
         workplace.style.setProperty('top', `${-(workplaceHeight - $('#main-content')[0].getClientRects()[0].height)}px`);
         workplaceScrolling = false;
       } else {
-        workplace.style.setProperty('top', `${(workplaceTop - headerHeight) - workplaceScrollerSpeed}px`);
+        workplace.style.setProperty('top', `${(workplaceTop - headerHeight) - (workplaceScrollerSpeed * speedMultiplier)}px`);
       }
 
       if (!workplaceScrolling) {
@@ -138,19 +139,18 @@ const toggleSortByIndicator = () => {
   let
     indicator = $('#sortbydata-indicator')[0],
     datasetNoDisplay = $('#dataSetDisplay-noDisplay')[0],
-    datasetInput = $('#dataIndexSelector-input')[0],
-    totalData = 0;
+    datasetInput = $('#dataIndexSelector-input')[0];
 
   if (sortbydata === 'sets') {
     if (dataLoaded) {
-      totalData = currentLoadedData.info.totalDatatypes;
+      dataSetsLength = currentLoadedData.info.totalDatatypes;
     }
 
     indicator.innerHTML = 'Sort By Types';
     sortbydata = 'types';
   } else {
     if (dataLoaded) {
-      totalData = currentLoadedData.info.totalDatasets;
+      dataSetsLength = currentLoadedData.info.totalDatasets;
     }
     
     indicator.innerHTML = 'Sort By Sets';
@@ -158,60 +158,103 @@ const toggleSortByIndicator = () => {
   }
 
   if (dataLoaded) {
-    datasetNoDisplay.innerHTML = totalData;
-    datasetInput.max = totalData;
+    datasetNoDisplay.innerHTML = dataSetsLength;
+    datasetInput.max = dataSetsLength;
     datasetInput.value = 1;
     currentDataIndex = 1;
   }
 }
 
-// order a graph of a single set of data chosen by the user
-const graphSingleSet = (canvasID = 'graphCanvas-1', dataIndex = currentDataIndex) => {
-  if (dataLoaded) {
-    let
-      dataset,
-      x = dataIndex - 1,
-      keys = currentLoadedData.info.keys,
-      setLimits = currentLoadedData.info.setLimits,
-      currentLimits,
-      dataLength = 0;
-
-    if (sortbydata === 'sets') {
-      dataset = currentLoadedData[x];
-      dataLength = currentLoadedData.info.totalDatatypes;
-      currentLimits = setLimits[x];
-    } else {
-      dataset = [];
-
-      let min = NaN, max = NaN;
-
-      for (let i = 0; i < currentLoadedData.info.totalDatasets; i++) {
-        currentValue = currentLoadedData[i][keys[x]];
-        dataset.push(currentValue);
-
-        if (typeof currentValue === 'number') {
-          if (isNaN(min)) {
-            min = currentValue;
-            max = currentValue;
-          } else {
-            if (currentValue > max) {
-              max = currentValue;
-            } else if (currentValue < min) {
-              min = currentValue;
-            }
-          }
-        }
-      }
-
-      currentLimits = {'min': min, 'max': max};
-      dataLength = currentLoadedData.info.totalDatasets;
-    }
-
-    graph(canvasID, dataset, {'min': 0, 'max': dataLength}, currentLimits);
-  } else {
+const graphMultipleSets = (dataIndexes=false) => {
+  if (!dataLoaded) {
     console.error('No data has been loaded to graph');
     return false;
   }
+
+  let currentDataSetsLength;
+
+  if (!dataIndexes) {
+    dataIndexes = [];
+    currentDataSetsLength = dataSetsLength;
+
+    for (let i = 0; i < dataSetsLength; i++) {
+      dataIndexes.push(i + 1);
+    }
+  } else {
+    currentDataSetsLength = dataIndexes.length;
+  }
+
+  let container = $('#graph-container-inner-box')[0];
+
+  container.style.setProperty('top', `0`);
+  container.style.setProperty('height', `${currentDataSetsLength}00%`);
+
+  for (let i = container.childNodes.length - 1; i >= 0 ; i--) {
+    if (isDOMElement(container.childNodes[i])) {
+      container.removeChild(container.childNodes[i]);
+    }
+  }
+
+  for (let i = 0; i < currentDataSetsLength; i++) {
+    let newCanvas = document.createElement('canvas');
+    newCanvas.id = `graphCanvas-${i + 1}`;
+    newCanvas.classList.add('graphCanvas');
+    newCanvas.classList.add(i + 1);
+
+    container.appendChild(newCanvas);
+    canvasDimConfigure(newCanvas.id);
+
+    graphSingleSet(newCanvas.id, dataIndexes[i]);
+  }
+}
+
+// order a graph of a single set of data chosen by the user
+const graphSingleSet = (canvasID='graphCanvas-1', dataIndex=currentDataIndex) => {
+  if (!dataLoaded) {
+    console.error('No data has been loaded to graph');
+    return false;
+  }
+
+  let
+    dataset,
+    x = dataIndex - 1,
+    keys = currentLoadedData.info.keys,
+    setLimits = currentLoadedData.info.setLimits,
+    currentLimits,
+    dataLength = 0;
+
+  if (sortbydata === 'sets') {
+    dataset = currentLoadedData[x];
+    dataLength = currentLoadedData.info.totalDatatypes;
+    currentLimits = setLimits[x];
+  } else {
+    dataset = [];
+
+    let min = NaN, max = NaN;
+
+    for (let i = 0; i < currentLoadedData.info.totalDatasets; i++) {
+      currentValue = currentLoadedData[i][keys[x]];
+      dataset.push(currentValue);
+
+      if (typeof currentValue === 'number') {
+        if (isNaN(min)) {
+          min = currentValue;
+          max = currentValue;
+        } else {
+          if (currentValue > max) {
+            max = currentValue;
+          } else if (currentValue < min) {
+            min = currentValue;
+          }
+        }
+      }
+    }
+
+    currentLimits = {'min': min, 'max': max};
+    dataLength = currentLoadedData.info.totalDatasets;
+  }
+
+  graph(canvasID, dataset, {'min': 0, 'max': dataLength}, currentLimits);
 }
 
 // download a given object as a json file

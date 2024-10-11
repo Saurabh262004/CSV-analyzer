@@ -21,10 +21,11 @@
       </div>
       <div class="main content" id="main-content">
         <div class="main controlPanel" id="main-controlPanel">
-          <span class="fileUpload container" id="fileUpload-container">
+          <span class="fileUpload container btntyp1" id="fileUpload-container">
             <label for="fileUpload-input" class="fileUpload label">Upload a data File</label>
             <input type="file" class="fileUpload input" id="fileUpload-input"/>
           </span>
+          <span class="downloadJson button btntyp1" id="downloadJson-button">Download</span>
           <span class="fileUpload transpose" id="fileUpload-transpose">
             <label for="fileUpload-transpose" id="fileUpload-transpose-label">Transpose File</label>
             <span class="transpose indicator off" id="transpose-indicator"></span>
@@ -33,7 +34,7 @@
             <label for="dataSetDisplay" class="dataSetDisplay label">No. of datasets :</label>
             <span class="dataSetDisplay noDisplay" id="dataSetDisplay-noDisplay">0</span>
           </span>
-          <span class="sortbydata" id="sortbydata-indicator">Sort By Sets</span>
+          <span class="sortbydata btntyp1" id="sortbydata-indicator">Sort By Sets</span>
           <span class="customizeDataset container" id="customizeDataset container">
             <span class="dataIndexSelector">
               Set Data Index: <input class="dataIndex input" id="dataIndexSelector-input" type="number" min="1" max="1"/>
@@ -49,12 +50,10 @@
               <span class="limitText yMax" id="limitText-yMax"></span>
             </span> -->
           </span>
-          <span class="downloadJson button btntyp1" id="downloadJson-button">Download json</span>
+          <span class="graphAll button btntyp1" id="graphAll-button">Graph All</span>
         </div>
         <div class="main graph-container" id="main-graph-container">
-          <div class="graph-container inner-box" id="graph-container-inner-box">
-            <canvas class="graphCanvas 1" id="graphCanvas-1"></canvas>
-          </div>
+          <div class="graph-container inner-box" id="graph-container-inner-box"></div>
           <span class="workplace scroller" id="workplace scroller">
             <span class="scroller button up" id="workplace-scroller-up"></span>
             <span class="scroller button down" id="workplace-scroller-down"></span>

@@ -2,7 +2,6 @@ let currentLoadedData, currentDataIndex = 1;
 
 $(document).ready(() => {
   setOverflowHiderHeight();
-  canvasDimConfigure('graphCanvas-1');
 
   window.setTimeout(() => {window.scrollTo(0, 0)}, 100);
 });
@@ -69,17 +68,17 @@ const checkData = (file, data) => {
 const setupDatasets = (file, datasets, raw=true) => {
   if (raw) datasets = csvToJson(datasets, getTransposeState());
 
-  let
-    totalData = datasets.info.totalDatasets,
-    datasetInput = $('#dataIndexSelector-input')[0];
+  let datasetInput = $('#dataIndexSelector-input')[0];
+  
+  dataSetsLength = datasets.info.totalDatasets;
 
   if (sortbydata === 'types') {
-    totalData = datasets.info.totalDatatypes;
+    dataSetsLength = datasets.info.totalDatatypes;
   }
 
-  $('#dataSetDisplay-noDisplay')[0].innerHTML = totalData;
+  $('#dataSetDisplay-noDisplay')[0].innerHTML = dataSetsLength;
   $('.fileUpload.label')[0].innerHTML = file.name;
-  datasetInput.max = totalData;
+  datasetInput.max = dataSetsLength;
   datasetInput.value = 1;
 
   dataLoaded = true;

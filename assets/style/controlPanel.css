@@ -1,3 +1,25 @@
+.btntyp1{
+  display: block;
+  position: absolute;
+  font-size: 2.3vh;
+  text-align: center;
+  background-color: #414141;
+  color: #eee;
+  border-radius: 1vh;
+  cursor: pointer;
+  transition: ease .2s;
+
+  &:hover{
+    box-shadow: #414141 0 0 .3vh .2vh;
+  }
+
+  &:active{
+    box-shadow: #555555 0 0 .5vh .2vh;
+    background-color: #555555;
+    transition: linear .05s;
+  }
+}
+
 .main.controlPanel{
   display: block;
   position: absolute;
@@ -9,18 +31,10 @@
 }
 
 .fileUpload.container{
-  display: block;
-  position: relative;
-  width: 80%;
-  aspect-ratio: 7/1;
+  width: 50%;
+  height: 6.5%;
   top: 3%;
   left: 3%;
-  background-color: #cacaca8e;
-  border-radius: 1.2vh;
-
-  &:hover{
-    background-color: #aaaaaa8e;
-  }
 }
 
 .fileUpload.label{
@@ -44,6 +58,14 @@
 
 .fileUpload.input{
   display: none;
+}
+
+.downloadJson.button{
+  top: 3%;
+  right: 15%;
+  width: 30%;
+  height: 5%;
+  padding-top: 1vh;
 }
 
 .fileUpload.transpose{
@@ -117,12 +139,13 @@
 .dataSetDisplay.contianer{
   display: block;
   position: absolute;
-  width: 50%;
-  height: 5%;
   top: 12%;
   left: 3%;
+  width: 50%;
+  height: 5%;
   padding-top: 1vh;
-  background-color: #cacaca8e;
+  background-color: #414141;
+  color: #eee;
   border-radius: 1.2vh;
 }
 
@@ -153,22 +176,11 @@
 }
 
 .sortbydata{
-  display: block;
-  position: absolute;
   top: 12%;
-  right: 3%;
+  right: 15%;
   width: 30%;
-  height: 4.7%;
+  height: 5%;
   padding-top: 1vh;
-  background-color: #cacaca8e;
-  font-size: 2.3vh;
-  text-align: center;
-  border-radius: 1.2vh;
-  cursor: pointer;
-
-  &:hover{
-    background-color: #aaaaaa8e;
-  }
 }
 
 .customizeDataset.container{
@@ -213,28 +225,6 @@
   }
 }
 
-.btntyp1{
-  display: block;
-  position: absolute;
-  font-size: 2.3vh;
-  text-align: center;
-  background-color: #414141;
-  color: #eee;
-  border-radius: 1vh;
-  cursor: pointer;
-  transition: ease .2s;
-
-  &:hover{
-    box-shadow: #414141 0 0 .3vh .2vh;
-  }
-
-  &:active{
-    box-shadow: #555555 0 0 .5vh .2vh;
-    background-color: #555555;
-    transition: linear .05s;
-  }
-}
-
 .preview.button{
   top: 5%;
   right: 5%;
@@ -251,10 +241,10 @@
   padding-top: 1vh;
 }
 
-.downloadJson.button{
-  bottom: 17%;
-  left: 4%;
-  width: 35%;
+.graphAll.button{
+  bottom: 10%;
+  right: 4%;
+  width: 30%;
   height: 5%;
   padding-top: 1vh;
 }

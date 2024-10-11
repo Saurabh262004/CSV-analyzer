@@ -1,7 +1,7 @@
 // converts any csv data into json format
 const csvToJson = (csv, transpose=false, downloadJSON=false, separator=',') => {
   if (!csv) {
-    console.error("Please provide a csv string")
+    console.error('Please provide a csv string');
     return false;
   }
 
@@ -309,7 +309,6 @@ const graph = (canvasID, data, XRange, YRange) => {
     }
 
     ctx.fillText(currentText, XPadding - (currentText.toString().length * 15), ((canvasH - YPadding) - (heightStep * i)) + 20);
-    console.log(currentText.toString());
   }
 
   // draw data

@@ -16,6 +16,14 @@ document.addEventListener('keydown', (event) => {
   } else if (keyLog['Shift']) {
     if (!workplaceScrolling) {
       if (key === 'ArrowUp') {
+        scrollWorkplace('up', 2.5);
+      } else if (key === 'ArrowDown') {
+        scrollWorkplace('down', 2.5);
+      }
+    }
+  } else {
+    if (!workplaceScrolling) {
+      if (key === 'ArrowUp') {
         scrollWorkplace('up');
       } else if (key === 'ArrowDown') {
         scrollWorkplace('down');
@@ -48,9 +56,11 @@ document.addEventListener('click', (event) => {
       break;
     case 'sortbydata-indicator' : toggleSortByIndicator();
       break;
-    case 'graphButton-single' : graphSingleSet();
+    case 'graphButton-single' : graphMultipleSets([1]);
       break;
     case 'downloadJson-button' : downloadJsonData(currentLoadedData, 2);
+      break;
+    case 'graphAll-button' : graphMultipleSets();
   }
 });
 
