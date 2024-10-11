@@ -1,6 +1,7 @@
 const ver = 1;
+const DBName = 'CSVAnalyzer';
 const indexedDB = window.indexedDB || window.mozIndexedDB || window.webIndexedDB || window.msIndexedDB || window.shimIndexedDB;
-const GLB_request = indexedDB.open('userData', ver);
+const GLB_request = indexedDB.open(DBName, ver);
 
 let RetrievedIDBData = {
   log : [],
@@ -18,41 +19,38 @@ GLB_request.onerror = event => {
   console.error(event.target);
 }
 
-// // structure of the database
-// GLB_request.onupgradeneeded = () => {
-//   const db = GLB_request.result;
+// structure of the database
+GLB_request.onupgradeneeded = () => {
+  const db = GLB_request.result;
 
-//   // create a store
-//   const slots = db.createObjectStore('slots', { keyPath: 'id' });
-//   const themes = db.createObjectStore('themes', { keyPath : 'id' });
+  // create a store
+  const user = db.createObjectStore('user', { keyPath: 'id' });
 
-//   // add indexes
-//   slots.createIndex('data', ['title', 'link', 'foundLogo'], { unique: false });
-//   themes.createIndex('title', ['title'], { unique : true });
-//   themes.createIndex('data', ['primary', 'secondary', 'background', 'accent', 'text'], { unique : false });
+  // add indexes
+  user.createIndex('data', ['userName'], { unique: false });
 
-//   slots.oncomplete = () => {
-//     db.close();
-//   }
-// }
+  user.oncomplete = () => {
+    db.close();
+  }
+
+  let userName;
+
+  while (true) {
+    userName = prompt('You look like a first time user! Please enter a username you\'d like to use');
+    console.log(userName);
+
+    if (!userName || userName.length > 16 || userName.length < 4) {
+      alert("Please enter a username that contains 4-16 characters");
+    } else {
+      break;
+    }
+  }
+
+  putObject(DBName, 'user', ver, { 'id' : 'userName', 'userName' : userName });
+}
 
 GLB_request.onsuccess = () => {
-
-  console.log('IDB is working!');
-
-  // const db = GLB_request.result;
-  // const SLOTS_transaction = db.transaction('slots', 'readonly');
-  // const slots = SLOTS_transaction.objectStore('slots');
-
-  // const querry1 = slots.getAll();
-
-  // querry1.onsuccess = () => {
-  //   console.log('idQuerry', querry1.result);
-  // }
-
-  // SLOTS_transaction.oncomplete = () => {
-  //   db.close();
-  // }
+  console.log('IDB is working');
 }
 
 const putObject = (DBName, storeName, version, object, callback) => {
@@ -67,6 +65,9 @@ const putObject = (DBName, storeName, version, object, callback) => {
     query.onerror = event => {
       console.error('there was an error with the query!');
       console.error(event.target);
+      if (typeof callback === 'function') {
+        callback(false);
+      }
     }
 
     query.onsuccess = event => {
@@ -192,8 +193,4 @@ const getObjectsByIndex = async (DBName, storeName, version, indexName, keys, ca
   }).then(data => {
     RetrievedIDBData.add(data);
   });
-}
-
-const test = () => {
-  console.log('test');
 }

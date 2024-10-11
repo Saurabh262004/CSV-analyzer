@@ -41,16 +41,14 @@
             </span>
             <span class="preview button btntyp1" id="preview-button">Preview</span>
             <span class="graphButton single btntyp1" id="graphButton-single">Graph</span>
-            <!-- <span class="datasetSelector container" id="datasetSelector-container"></span>
-            <label for="dimLimits-container" id="dimLimits label">X and Y Limits:</label>
-            <span class="dimLimits container" id="dimLimits-container">
-              <span class="limitText xMin" id="limitText-xMin"></span>
-              <span class="limitText xMax" id="limitText-xMax"></span>
-              <span class="limitText yMin" id="limitText-yMin"></span>
-              <span class="limitText yMax" id="limitText-yMax"></span>
-            </span> -->
+            <span class="rangeContainer X" id="rangeContainer-X">
+              X Multiplier: <input type="range" class="multiplier X" id="multiplier-X" value="34"/>
+            </span>
+            <span class="rangeContainer Y" id="rangeContainer-Y">
+              Y Multiplier: <input type="range" class="multiplier Y" id="multiplier-Y" value="34"/>
+            </span>
+            <span class="graphButton all btntyp1" id="graphAll-button">Graph All</span>
           </span>
-          <span class="graphAll button btntyp1" id="graphAll-button">Graph All</span>
         </div>
         <div class="main graph-container" id="main-graph-container">
           <div class="graph-container inner-box" id="graph-container-inner-box"></div>
@@ -66,12 +64,13 @@
     <div class="main overflow-hider" id="main-overflow-hider"></div>
   </body>
   <script type="text/javascript" src="assets/scripts/libraries/jquery-3.7.0.min.js"></script>
-  <!-- <script type="text/javascript" src="assets/scripts/libraries/p5.min.js"></script> -->
   <script type="text/javascript" src="assets/scripts/helpers.js"></script>
+  <script type="text/javascript" src="assets/scripts/libraries/customLibraries/IDBHandler.js"></script>
   <script type="text/javascript" src="assets/scripts/libraries/customLibraries/Custom Alerts/customAlerts.js"></script>
   <script type="text/javascript" src="assets/scripts/libraries/customLibraries/grapher.js"></script>
+  <script type="text/javascript" src="assets/scripts/script.js"></script>
   <script type="text/javascript" src="assets/scripts/interactionHandlers.js"></script>
   <script type="text/javascript" src="assets/scripts/eventManager.js"></script>
-  <script type="text/javascript" src="assets/scripts/script.js"></script>
   <script type="text/javascript" src="assets/scripts/startup.js"></script>
+  <script type="text/javascript" src="assets/scripts/initialDBOperations.js"></script>
 </html>

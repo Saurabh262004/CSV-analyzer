@@ -221,7 +221,7 @@ const evaluateSpline = (a, b, c, d, x, XEval) => {
 }
 
 // graph a given set of data onto an html canvas
-const graph = (canvasID, data, XRange, YRange) => {
+const graph = (canvasID, data, XRange, YRange, XMulti, YMulti) => {
   let
     canvas = $(`#${canvasID}`)[0],
     ctx = canvas.getContext('2d'),
@@ -268,14 +268,14 @@ const graph = (canvasID, data, XRange, YRange) => {
 
   let
     YEval = evaluateSpline(a, b, c, d, XPoints, XEval),
-    YL = Math.min(...YEval),
-    YH = Math.max(...YEval),
     XL = Math.min(...XEval),
-    XH = Math.max(...XEval);
+    XH = Math.max(...XEval),
+    YL = Math.min(...YEval),
+    YH = Math.max(...YEval);
 
   for (let i = 0; i < YEval.length; i++) {
-    YEval[i] = map(YEval[i], YL, YH, canvasH - YPadding, YPadding);
-    XEval[i] = map(XEval[i], XL, XH, XPadding, canvasW - XPadding);
+    XEval[i] = map(XEval[i], XL, XH, XPadding, (canvasW - XPadding) * XMulti);
+    YEval[i] = map(YEval[i], YL, YH, canvasH - YPadding, YPadding - ((YMulti - 1) * 500));
   }
 
   // clear canvas
@@ -294,12 +294,17 @@ const graph = (canvasID, data, XRange, YRange) => {
   ctx.lineTo(canvasW, canvasH - YPadding);
 
   // draw Y axis text
-  ctx.font = '20px courier';
-
   let
     totalAxisIntervals = 10,
     YAxisStep = (maxY - minY) / totalAxisIntervals,
-    heightStep = (canvasH - (YPadding * 2)) / totalAxisIntervals;
+    heightStep = Math.abs(Math.max(...YEval) - Math.min(...YEval)) / totalAxisIntervals,
+    fontSize = 20;
+
+  if (YMulti < 1) {
+    fontSize = 20 * YMulti;
+  }
+
+  ctx.font = `${fontSize}px courier`;
 
   for (let i = 0; i <= totalAxisIntervals; i++) {
     let currentText = (minY + (YAxisStep * i)).toFixed(1);
@@ -308,7 +313,7 @@ const graph = (canvasID, data, XRange, YRange) => {
       currentText = parseInt(currentText);
     }
 
-    ctx.fillText(currentText, XPadding - (currentText.toString().length * 15), ((canvasH - YPadding) - (heightStep * i)) + 20);
+    ctx.fillText(currentText, XPadding - (currentText.toString().length * ((fontSize / 4) * 3)), ((canvasH - YPadding) - (heightStep * i)) + fontSize);
   }
 
   // draw data

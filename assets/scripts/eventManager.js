@@ -1,7 +1,3 @@
-let
-  keyLog = {}, // to track every key if it's presed or not
-  mousedown = false;
-
 // keyboard shortcut controls
 document.addEventListener('keydown', (event) => {
   key = event.key;
@@ -56,7 +52,7 @@ document.addEventListener('click', (event) => {
       break;
     case 'sortbydata-indicator' : toggleSortByIndicator();
       break;
-    case 'graphButton-single' : graphMultipleSets([1]);
+    case 'graphButton-single' : graphMultipleSets([currentDataIndex]);
       break;
     case 'downloadJson-button' : downloadJsonData(currentLoadedData, 2);
       break;
@@ -96,4 +92,13 @@ $('#fileUpload-input').change(() => {
 // update currentDataIndex everytime dataIndexSelector input changes
 $('#dataIndexSelector-input').change(() => {
   currentDataIndex = $('#dataIndexSelector-input')[0].value;
+});
+
+// update X and Y multipliers
+$('#multiplier-X').change(() => {
+  XMultiplier = map($('#multiplier-X')[0].value, 0, 100, 0.5, 2);
+});
+
+$('#multiplier-Y').change(() => {
+  YMultiplier = map($('#multiplier-Y')[0].value, 0, 100, 0.5, 2);
 });

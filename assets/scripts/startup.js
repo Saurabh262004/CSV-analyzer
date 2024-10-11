@@ -1,5 +1,3 @@
-let currentLoadedData, currentDataIndex = 1;
-
 $(document).ready(() => {
   setOverflowHiderHeight();
 

@@ -1,15 +1,3 @@
-let
-  profileConfig = $('#profile-config')[0],
-  profile = $('#main-profile')[0],
-  footerScrollSpeed = 200, // in ms
-  footerScrollBlocked = false,
-  workplaceScrolling = false,
-  workplaceScrollerFPS = 60, // intervals per second
-  workplaceScrollerSpeed = 4; // pxixels per interval
-  sortbydata = 'sets',
-  dataLoaded = false,
-  dataSetsLength = 0;
-
 // animate scrolling from one point to another in a linear motion
 const scrollAnim = (x, y, ms, callBack) => {
   let
@@ -165,7 +153,8 @@ const toggleSortByIndicator = () => {
   }
 }
 
-const graphMultipleSets = (dataIndexes=false) => {
+// graph multiple sets of data by given data indices
+const graphMultipleSets = (dataIndices=false) => {
   if (!dataLoaded) {
     console.error('No data has been loaded to graph');
     return false;
@@ -173,15 +162,15 @@ const graphMultipleSets = (dataIndexes=false) => {
 
   let currentDataSetsLength;
 
-  if (!dataIndexes) {
-    dataIndexes = [];
+  if (!dataIndices) {
+    dataIndices = [];
     currentDataSetsLength = dataSetsLength;
 
     for (let i = 0; i < dataSetsLength; i++) {
-      dataIndexes.push(i + 1);
+      dataIndices.push(i + 1);
     }
   } else {
-    currentDataSetsLength = dataIndexes.length;
+    currentDataSetsLength = dataIndices.length;
   }
 
   let container = $('#graph-container-inner-box')[0];
@@ -204,7 +193,7 @@ const graphMultipleSets = (dataIndexes=false) => {
     container.appendChild(newCanvas);
     canvasDimConfigure(newCanvas.id);
 
-    graphSingleSet(newCanvas.id, dataIndexes[i]);
+    graphSingleSet(newCanvas.id, dataIndices[i]);
   }
 }
 
@@ -254,7 +243,7 @@ const graphSingleSet = (canvasID='graphCanvas-1', dataIndex=currentDataIndex) =>
     dataLength = currentLoadedData.info.totalDatasets;
   }
 
-  graph(canvasID, dataset, {'min': 0, 'max': dataLength}, currentLimits);
+  graph(canvasID, dataset, {'min': 0, 'max': dataLength}, currentLimits, XMultiplier, YMultiplier);
 }
 
 // download a given object as a json file
