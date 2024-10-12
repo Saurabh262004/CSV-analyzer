@@ -42,6 +42,8 @@ document.addEventListener('click', (event) => {
   switch (event.target.id) {
     case 'main-profile' : profileConfigLoadUnload();
       break;
+    case 'profile-image-container' : profileConfigLoadUnload();
+      break;
     case 'profile-image' : profileConfigLoadUnload();
       break;
     case 'main-scroller' : footerScroll();

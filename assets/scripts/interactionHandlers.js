@@ -178,11 +178,7 @@ const graphMultipleSets = (dataIndices=false) => {
   container.style.setProperty('top', `0`);
   container.style.setProperty('height', `${currentDataSetsLength}00%`);
 
-  for (let i = container.childNodes.length - 1; i >= 0 ; i--) {
-    if (isDOMElement(container.childNodes[i])) {
-      container.removeChild(container.childNodes[i]);
-    }
-  }
+  container.innerHTML = '';
 
   for (let i = 0; i < currentDataSetsLength; i++) {
     let newCanvas = document.createElement('canvas');

@@ -16,7 +16,7 @@
   transition: ease-out .2s;
 }
 
-.profile.image{
+.profile.image.container{
   display: block;
   position: absolute;
   top: 10%;
@@ -26,6 +26,16 @@
   background-color: #3d7228;
   border-radius: 1vh;
   cursor: pointer;
+  overflow: hidden;
+}
+
+.profile.image{
+  display: block;
+  position: absolute;
+  height: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 1vh;
 }
 
 .profile.name{
@@ -38,6 +48,7 @@
   width: fit-content;
   font-size: 3vh;
   pointer-events: none;
+  color: #eee;
 }
 
 .profile.config{

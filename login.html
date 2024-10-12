@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Login To CSVAnalyzer</title>
+    <link rel="stylesheet" href="assets/style/login.css"/>
+  </head>
+  <body>
+    <span class="login message" id="login-message">
+      Hello first time user!<br>
+      Please enter a username you'd like to use on our website
+    </span>
+    <div class="login container" id="login-container">
+      <input type="text" class="login input username" id="login-input-username" spellcheck="false"/>
+      <span class="pfpPreview container" id="pfpPreview-container"></span>
+      <span class="pfpInput container" id="pfpInput-container">
+        <label for="login-input-pfp" id="login-input-pfp-label">Upload a profile image</label>
+        <input type="file" class="login input pfp" id="login-input-pfp"/>
+      </span>
+    </div>
+    <span class="save button" id="save-button" onclick="saveUserProfile()">Save</span>
+  </body>
+  <script type="text/javascript" src="assets/scripts/libraries/jquery-3.7.0.min.js"></script>
+  <script type="text/javascript" src="assets/scripts/helpers.js"></script>
+  <script type="text/javascript" src="assets/scripts/libraries/customLibraries/Custom Alerts/customAlerts.js"></script>
+  <script type="text/javascript" src="assets/scripts/libraries/customLibraries/IDBHandler.js"></script>
+  <script type="text/javascript" src="assets/scripts/login.js"></script>
+</html>

@@ -12,7 +12,9 @@
       <div class="main header" id="main-header">
         <span class="main logo" id="main-logo"></span>
         <span class="main profile" id="main-profile">
-          <span class="profile image" id="profile-image"></span>
+          <span class="profile image container" id="profile-image-container">
+            <img src="assets/images/default-pfp.png" class="profile image" id="profile-image"/>
+          </span>
           <span class="profile name" id="profile-name">UserNameHere</span>
           <span class="profile config" id="profile-config">
             <span class="config test"></span>
@@ -65,6 +67,7 @@
   </body>
   <script type="text/javascript" src="assets/scripts/libraries/jquery-3.7.0.min.js"></script>
   <script type="text/javascript" src="assets/scripts/helpers.js"></script>
+  <script type="text/javascript" src="assets/scripts/defineInitialDBOperations.js"></script>
   <script type="text/javascript" src="assets/scripts/libraries/customLibraries/IDBHandler.js"></script>
   <script type="text/javascript" src="assets/scripts/libraries/customLibraries/Custom Alerts/customAlerts.js"></script>
   <script type="text/javascript" src="assets/scripts/libraries/customLibraries/grapher.js"></script>
@@ -72,5 +75,5 @@
   <script type="text/javascript" src="assets/scripts/interactionHandlers.js"></script>
   <script type="text/javascript" src="assets/scripts/eventManager.js"></script>
   <script type="text/javascript" src="assets/scripts/startup.js"></script>
-  <script type="text/javascript" src="assets/scripts/initialDBOperations.js"></script>
+  <script type="text/javascript" src="assets/scripts/initiateDBOperations.js"></script>
 </html>

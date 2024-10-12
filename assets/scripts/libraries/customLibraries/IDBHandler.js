@@ -23,30 +23,17 @@ GLB_request.onerror = event => {
 GLB_request.onupgradeneeded = () => {
   const db = GLB_request.result;
 
-  // create a store
   const user = db.createObjectStore('user', { keyPath: 'id' });
 
-  // add indexes
-  user.createIndex('data', ['userName'], { unique: false });
+  user.createIndex('info', ['infoID'], { unique: true });
+  user.createIndex('preferences', ['preferencesID'], { unique: true });
+  user.createIndex('previousData', ['previousDataID'], { unique: false });
 
   user.oncomplete = () => {
     db.close();
   }
 
-  let userName;
-
-  while (true) {
-    userName = prompt('You look like a first time user! Please enter a username you\'d like to use');
-    console.log(userName);
-
-    if (!userName || userName.length > 16 || userName.length < 4) {
-      alert("Please enter a username that contains 4-16 characters");
-    } else {
-      break;
-    }
-  }
-
-  putObject(DBName, 'user', ver, { 'id' : 'userName', 'userName' : userName });
+  putObject(DBName, 'user', ver, { 'id' : 'info', 'infoID' : 'firstTimeUser', 'firstTimeUser' : true });
 }
 
 GLB_request.onsuccess = () => {
@@ -63,7 +50,7 @@ const putObject = (DBName, storeName, version, object, callback) => {
     const query = store.put(object);
 
     query.onerror = event => {
-      console.error('there was an error with the query!');
+      console.error('There was an error with the query!');
       console.error(event.target);
       if (typeof callback === 'function') {
         callback(false);
@@ -72,7 +59,7 @@ const putObject = (DBName, storeName, version, object, callback) => {
 
     query.onsuccess = event => {
       if (typeof callback === 'function') {
-        callback(event.target);
+        callback(object);
       }
     }
 
@@ -82,7 +69,7 @@ const putObject = (DBName, storeName, version, object, callback) => {
   }
 
   request.onerror = event => {
-    console.error('there was am error with request!');
+    console.error('There was am error with request!');
     console.error(event.target);
   }
 }
@@ -103,7 +90,7 @@ const deleteObject = (DBName, storeName, version, objectID, callback) => {
     }
 
     query.onerror = event => {
-      console.error('there was an error with the query!');
+      console.error('There was an error with the query!');
       console.error(event.target);
     }
 
@@ -113,7 +100,7 @@ const deleteObject = (DBName, storeName, version, objectID, callback) => {
   }
 
   request.onerror = event => {
-    console.error('there was an error with the request!');
+    console.error('There was an error with the request!');
     console.error(event.target);
   }
 }
@@ -137,7 +124,7 @@ const getObject = async (DBName, storeName, version, key, callback) => {
 
       query.onerror = event => {
         reject(event.error);
-        console.error('there was an error with the query!');
+        console.error('There was an error with the query!');
         console.error(event.target);
       }
 
@@ -148,7 +135,7 @@ const getObject = async (DBName, storeName, version, key, callback) => {
 
     request.onerror = event => {
       reject(event.target);
-      console.error('there was a promblem with the request!');
+      console.error('There was a promblem with the request!');
       console.error(event.target);
     }
   }).then(data => {
@@ -176,7 +163,7 @@ const getObjectsByIndex = async (DBName, storeName, version, indexName, keys, ca
 
       query.onerror = event => {
         reject(event.target);
-        console.error('there was an error with the query!');
+        console.error('There was an error with the query!');
         console.error(event.target);
       }
 
@@ -187,10 +174,22 @@ const getObjectsByIndex = async (DBName, storeName, version, indexName, keys, ca
 
     request.onerror = event => {
       reject(event.target);
-      console.error('there was an error with request!');
+      console.error('There was an error with request!');
       console.error(event.target);
     }
   }).then(data => {
     RetrievedIDBData.add(data);
   });
+}
+
+const deleteDatabase = (databaseName) => {
+  const request = indexedDB.deleteDatabase(databaseName);
+
+  request.onsuccess = function() {
+    console.log('Database deleted successfully');
+  };
+
+  request.onerror = function() {
+    console.log('Error deleting database');
+  };
 }

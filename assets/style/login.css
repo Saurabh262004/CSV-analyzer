@@ -1,0 +1,153 @@
+*{
+  padding: 0;
+  margin: 0;
+  color: #eee;
+  font-family: 'Segoe UI';
+}
+
+*::-webkit-scrollbar{
+  display: none;
+}
+
+*::selection{
+  background-color: #b2c5c9;
+  color: #16161a;
+}
+
+body{
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #16161a;
+  background-image: url('../images/background-1.png');
+  background-position: center 15%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.save.button{
+  display: block;
+  position: absolute;
+  width: 7%;
+  height: 5%;
+  right: 3%;
+  top: 5%;
+  background-color: #6ac2d83f;
+  text-align: center;
+  padding-top: 1vh;
+  font-size: 2.5vh;
+  border-radius: 1vh;
+  cursor: pointer;
+  transition: ease .3s;
+
+  &:hover{
+    box-shadow: #6ac2d8 0 0 1vh .7vh;
+  }
+}
+
+.login.message{
+  display: block;
+  position: absolute;
+  width: 25%;
+  height: 15%;
+  top: 5%;
+  left: 37.5%;
+  padding-top: 3vh;
+  font-size: 2.5vh;
+  font-weight: 100;
+  text-align: center;
+  background-color: #daa5203d;
+  border: 1px solid #daa520;
+  border-radius: 2vh;
+}
+
+.login.container{
+  display: block;
+  position: absolute;
+  width: 40%;
+  height: 60%;
+  top: 25%;
+  left: 30%;
+  /* background-color: #456b4b75; */
+}
+
+.login.input.username{
+  display: block;
+  position: absolute;
+  width: 60%;
+  height: 9%;
+  top: 10%;
+  left: 20%;
+  border: none;
+  color: #eee;
+  background-color: #6ac2d83f;
+  text-align: center;
+  font-size: 3vh;
+  border-radius: 1vh;
+  transition: ease .3s;
+
+  &:hover{
+    box-shadow: #6ac2d8 0 0 1vh .7vh;
+  }
+
+  &:focus-visible{
+    outline: none;
+    border: none;
+    box-shadow: #6ac2d8 0 0 1vh .7vh;
+  }
+}
+
+.pfpPreview.container{
+  display: block;
+  position: absolute;
+  width: 30%;
+  aspect-ratio: 1/1;
+  left: 35%;
+  top: 30%;
+  background-color: #6ac2d83f;
+  border-radius: 2vh;
+}
+
+.pfpImage{
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2vh;
+}
+
+.pfpInput.container{
+  display: block;
+  position: absolute;
+  width: 40%;
+  height: 7%;
+  top: 80%;
+  left: 30%;
+  text-align: center;
+  padding-top: 1vh;
+  font-size: 2.5vh;
+  background-color: #6ac2d83f;
+  border-radius: 1vh;
+  transition: ease .3s;
+
+  &:hover{
+    box-shadow: #6ac2d8 0 0 1vh .7vh;
+  }
+}
+
+#login-input-pfp-label{
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.login.input.pfp{
+  display: none;
+}
+
