@@ -59,6 +59,14 @@ document.addEventListener('click', (event) => {
     case 'downloadJson-button' : downloadJsonData(currentLoadedData, 2);
       break;
     case 'graphAll-button' : graphMultipleSets();
+      break;
+    case 'save-button' : saveCurrentData();
+      break;
+    default : {
+      if (event.target.classList[0] === 'previousData' && event.target.classList[1] === 'slot') {
+        loadPreviousData(parseInt(event.target.classList[2]));
+      }
+    }
   }
 });
 

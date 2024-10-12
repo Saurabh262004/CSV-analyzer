@@ -16,4 +16,5 @@ YMultiplier = 1,
 keyLog = {}, // to track every key if it's presed or not
 mousedown = false,
 currentDataIndex = 1,
-currentLoadedData;
+currentLoadedData,
+loadedFromSaves = false;

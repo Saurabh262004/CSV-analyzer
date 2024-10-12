@@ -1,12 +1,9 @@
 $(document).ready(() => {
   setOverflowHiderHeight();
+  loadAllSlots();
 
   window.setTimeout(() => {window.scrollTo(0, 0)}, 100);
 });
-
-const test = (a) => {
-  console.log(a);
-}
 
 const getDataFromInput = (callback, callbackParams=undefined) => {
   let file = $('#fileUpload-input')[0].files[0];
@@ -63,7 +60,7 @@ const checkData = (file, data) => {
   setupDatasets(file, JSONData, false);
 }
 
-const setupDatasets = (file, datasets, raw=true) => {
+const setupDatasets = (file, datasets, raw=true, fromSaves=false) => {
   if (raw) datasets = csvToJson(datasets, getTransposeState());
 
   let datasetInput = $('#dataIndexSelector-input')[0];
@@ -81,6 +78,7 @@ const setupDatasets = (file, datasets, raw=true) => {
 
   dataLoaded = true;
   currentLoadedData = datasets;
+  loadedFromSaves = fromSaves;
 }
 
 const unloadDatasets = () => {
@@ -90,6 +88,23 @@ const unloadDatasets = () => {
 const setupDatasetsAlertBuffer = (result) => {
   if (result === 'yes') getDataFromInput(setupDatasets);
   else return false;
+}
+
+const loadAllSlots = () => {
+  getObject(DBName, 'user', ver, 'info', (userObject) => {
+    for (let i = 0; i < userObject.totalDataSaves; i++) {
+      let newSlot = document.createElement('span');
+
+      newSlot.id = `previousData-slot-${i + 1}`;
+      newSlot.classList.add('previousData');
+      newSlot.classList.add('slot');
+      newSlot.classList.add(i + 1);
+      newSlot.classList.add('btntyp1');
+      newSlot.innerHTML = `Dataset No : ${i + 1}`;
+  
+      $('#previousData-container')[0].appendChild(newSlot);
+    }
+  });
 }
 
 // setup all the custom alerts

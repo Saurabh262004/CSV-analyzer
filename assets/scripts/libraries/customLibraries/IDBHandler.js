@@ -27,7 +27,7 @@ GLB_request.onupgradeneeded = () => {
 
   user.createIndex('info', ['infoID'], { unique: true });
   user.createIndex('preferences', ['preferencesID'], { unique: true });
-  user.createIndex('previousData', ['previousDataID'], { unique: false });
+  user.createIndex('previousData', ['previousDataID'], { unique: true });
 
   user.oncomplete = () => {
     db.close();

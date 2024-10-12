@@ -82,7 +82,8 @@ const saveUserProfile = () => {
     'infoID' : 'userData',
     'firstTimeUser' : false,
     'userName' : userNameGlobal,
-    'pfp' : imageData
+    'pfp' : imageData,
+    'totalDataSaves' : 0
   };
 
   putObject(DBName, 'user', ver, newObject, () => {goToURL('index.html')});

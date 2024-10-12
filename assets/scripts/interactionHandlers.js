@@ -242,6 +242,45 @@ const graphSingleSet = (canvasID='graphCanvas-1', dataIndex=currentDataIndex) =>
   graph(canvasID, dataset, {'min': 0, 'max': dataLength}, currentLimits, XMultiplier, YMultiplier);
 }
 
+// load a dataset saved in the indexedDB by a given index
+const loadPreviousData = (index) => {
+  getObject(DBName, 'user', ver, index, (result) => {
+    setupDatasets({ 'name' : `previousDataNo: ${index}` }, result.data, raw=false, fromSaved=true);
+  });
+}
+
+// save the currently loaded data into the IndexedDB
+const saveCurrentData = () => {
+  if (!dataLoaded) {
+    console.error('No data has been loaded to save');
+    return false;
+  }
+
+  if (loadedFromSaves) {
+    console.error('Currently loaded data is already from saves');
+    return false;
+  }
+
+  getObject(DBName, 'user', ver, 'info', (userObject) => {
+    userObject.totalDataSaves += 1;
+    let totalSaves = userObject.totalDataSaves;
+    putObject(DBName, 'user', ver, userObject);
+
+    let newSlot = document.createElement('span');
+
+    newSlot.id = `previousData-slot-${totalSaves}`;
+    newSlot.classList.add('previousData');
+    newSlot.classList.add('slot');
+    newSlot.classList.add(totalSaves);
+    newSlot.classList.add('btntyp1');
+    newSlot.innerHTML = `Dataset No : ${totalSaves}`;
+
+    $('#previousData-container')[0].appendChild(newSlot);
+
+    putObject(DBName, 'user', ver, { 'id' : totalSaves, 'previousDataID' : totalSaves, 'data' :  currentLoadedData });
+  });
+}
+
 // download a given object as a json file
 const downloadJsonData = (jsonData, indent=0) => {
   if (typeof jsonData !== 'object') {

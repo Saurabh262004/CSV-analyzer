@@ -98,6 +98,11 @@ const goToURL = (url) => {
   window.location.href = url;
 }
 
+// test
+const test = (test) => {
+  console.log(test);
+}
+
 // change the :root css variable value to the value provided
 const setCSSRootVariable = (variableName, value) => {
   document.documentElement.style.setProperty(`--${variableName}`, value);
