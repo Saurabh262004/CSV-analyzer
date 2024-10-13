@@ -69,12 +69,13 @@
   transition: ease-out .2s;
 }
 
-.config.test{
+.config.element{
   display: block;
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
-  height: 20%;
+  height: 15%;
+  margin-top: 3vh;
   background-color: #6b72288f;
 }

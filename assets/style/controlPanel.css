@@ -183,9 +183,9 @@
 .customizeDataset.container{
   display: block;
   position: absolute;
-  top: 22%;
-  left: 4%;
-  width: 92%;
+  top: 21%;
+  left: 3%;
+  width: 94%;
   aspect-ratio: 1/.5;
   background-color: #9ba3af;
   border-radius: 1.2vh;
@@ -280,8 +280,8 @@
 #previousData-container-label{
   display: block;
   position: absolute;
-  width: 92%;
-  left: 4%;
+  width: 94%;
+  left: 3%;
   top: 50%;
   text-align: center;
   font-size: 2.5vh;
@@ -292,9 +292,9 @@
 .previousData.container{
   display: block;
   position: absolute;
-  width: 92%;
+  width: 94%;
   height: 40%;
-  left: 4%;
+  left: 3%;
   top: 50%;
   background-color: #9ba3af;
   border-radius: 1.2vh;
@@ -302,11 +302,33 @@
   padding-top: 4vh;
 }
 
+/* #previousData-slot-1{
+  margin-top: 1vh;
+} */
+
 .previousData.slot{
+  display: block;
   position: relative;
   width: 90%;
   aspect-ratio: 9/1;
-  padding-top: 1.2vh;
   left: 5%;
-  margin-top: 1.7vh;
+  margin-top: 3vh;
+  /* background-color: #6b87d6a6; */
+}
+
+.previousData.loader{
+  height: 100%;
+  width: 85%;
+  padding-top: 1vh;
+}
+
+.previousData.deleteBTN{
+  height: 90%;
+  top: .5vh;
+  aspect-ratio: 1/1;
+  right: 0;
+  background-image: url('../images/cross3.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 60%;
 }

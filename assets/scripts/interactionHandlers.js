@@ -31,7 +31,7 @@ const profileConfigLoadUnload = () => {
 
 // handle scrolling up or down in the workplace
 const scrollWorkplace = (direction, speedMultiplier=1) => {
-  if (direction === 'up') {
+  if (direction === 'ArrowUp' || direction === 'up') {
     workplaceScrolling = true;
 
     let workplaceScrollerInterval = window.setInterval(() => {
@@ -55,7 +55,7 @@ const scrollWorkplace = (direction, speedMultiplier=1) => {
         clearInterval(workplaceScrollerInterval);
       }
     }, workplaceScrollerFPS/1000);
-  } else if (direction === 'down') {
+  } else if (direction === 'ArrowDown' || direction === 'down') {
     workplaceScrolling = true;
 
     let workplaceScrollerInterval = window.setInterval(() => {
@@ -98,13 +98,13 @@ const footerScroll = () => {
       scrollAnim(0, $('#main-footer')[0].getClientRects()[0].height, footerScrollSpeed, () => {footerScrollBlocked = false});
       scrollerClassList.remove('down');
       scrollerClassList.add('up');
-      scroller.innerHTML = 'Up';
+      scroller.innerHTML = 'Close';
     } else {
       footerScrollBlocked = true;
       scrollAnim(0, 0, footerScrollSpeed, () => {footerScrollBlocked = false});
       scrollerClassList.add('down');
       scrollerClassList.remove('up');
-      scroller.innerHTML = 'Down';
+      scroller.innerHTML = 'Show Footer';
     }
   }
 }
@@ -266,18 +266,31 @@ const saveCurrentData = () => {
     let totalSaves = userObject.totalDataSaves;
     putObject(DBName, 'user', ver, userObject);
 
-    let newSlot = document.createElement('span');
-
-    newSlot.id = `previousData-slot-${totalSaves}`;
-    newSlot.classList.add('previousData');
-    newSlot.classList.add('slot');
-    newSlot.classList.add(totalSaves);
-    newSlot.classList.add('btntyp1');
-    newSlot.innerHTML = `Dataset No : ${totalSaves}`;
-
-    $('#previousData-container')[0].appendChild(newSlot);
+    $('#previousData-container')[0].appendChild(newSlot(totalSaves));
 
     putObject(DBName, 'user', ver, { 'id' : totalSaves, 'previousDataID' : totalSaves, 'data' :  currentLoadedData });
+  });
+}
+
+// delete data from indexedDB of given index
+const deletePreviousData = (index) => {
+  getObject(DBName, 'user', ver, 'info', (userObject) => {
+    // $('#previousData-container')[0].removeChild($(`#previousData-slot-${index}`)[0]);
+
+    userObject.totalDataSaves -= 1;
+
+    let totalSaves = userObject.totalDataSaves;
+
+    putObject(DBName, 'user', ver, userObject);
+    deleteObject(DBName, 'user', ver, index);
+
+    for (let i = index + 1; i <= totalSaves + 1; i++) {
+      getObject(DBName, 'user', ver, i, (dataObject) => {
+        putObject(DBName, 'user', ver, { 'id' : i - 1, 'previousDataID' : i - 1, 'data' :  dataObject.data });
+      });
+    }
+
+    deleteObject(DBName, 'user', ver, totalSaves + 1, reLoadAllSlots);
   });
 }
 

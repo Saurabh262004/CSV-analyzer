@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="assets/style/profile.css"/>
     <link rel="stylesheet" href="assets/style/workplace.css"/>
     <link rel="stylesheet" href="assets/style/controlPanel.css"/>
+    <link rel="stylesheet" href="assets/style/footer.css"/>
   </head>
   <body>
     <div class="main container" id="main-container">
@@ -17,7 +18,10 @@
           </span>
           <span class="profile name" id="profile-name">UserNameHere</span>
           <span class="profile config" id="profile-config">
-            <span class="config test"></span>
+            <span class="config element test"></span>
+            <span class="config element test"></span>
+            <span class="config element test"></span>
+            <span class="config element test"></span>
           </span>
         </span>
       </div>
@@ -63,8 +67,20 @@
           </span>
         </div>
       </div>
-      <span class="main scroller down" id="main-scroller">Down</span>
-      <div class="main footer" id="main-footer"></div>
+      <span class="main scroller down" id="main-scroller">Show Footer</span>
+      <div class="main footer" id="main-footer">
+        <span class="footerElements container" id="footerElements container">
+          <span class="footerElement sourceCode" id="footerElement-sourceCode">
+            <a href="#" onclick="newTab('https://github.com/Saurabh262004/CSV-analyzer')">Source Code</a>
+          </span>
+          <span class="footerElement copyright" id="footerElement-sourceCode">
+            © 2024 <a href="#" onclick="newTab('https://github.com/Saurabh262004')">Saurabh26</a>
+          </span>
+          <span class="footerElement copyrightLicense" id="footerElement-copyrightLicense">
+            <a href="#" onclick="newTab('https://github.com/Saurabh262004/CSV-analyzer/blob/main/LICENSE')">License</a>
+          </span>
+        </span>
+      </div>
     </div>
     <div class="main overflow-hider" id="main-overflow-hider"></div>
   </body>

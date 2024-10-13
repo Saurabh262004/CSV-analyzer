@@ -3,28 +3,17 @@ document.addEventListener('keydown', (event) => {
   key = event.key;
   keyLog[key] = true;
 
+  let scrollSpeed = 1;
+
   if (keyLog['Control']) {
     if (key === 'ArrowDown') {
       footerScroll();
     } else if (key === 'ArrowRight') {
       profileConfigLoadUnload();
     }
-  } else if (keyLog['Shift']) {
-    if (!workplaceScrolling) {
-      if (key === 'ArrowUp') {
-        scrollWorkplace('up', 2.5);
-      } else if (key === 'ArrowDown') {
-        scrollWorkplace('down', 2.5);
-      }
-    }
-  } else {
-    if (!workplaceScrolling) {
-      if (key === 'ArrowUp') {
-        scrollWorkplace('up');
-      } else if (key === 'ArrowDown') {
-        scrollWorkplace('down');
-      }
-    }
+  } else if ((key === 'ArrowUp' || key === 'ArrowDown') && !workplaceScrolling && $('#main-scroller')[0].classList[2] === 'down') {
+    if (keyLog['Shift']) scrollSpeed = 2.5;
+    scrollWorkplace(key, scrollSpeed);
   }
 });
 
@@ -63,8 +52,10 @@ document.addEventListener('click', (event) => {
     case 'save-button' : saveCurrentData();
       break;
     default : {
-      if (event.target.classList[0] === 'previousData' && event.target.classList[1] === 'slot') {
+      if (event.target.classList[1] === 'loader') {
         loadPreviousData(parseInt(event.target.classList[2]));
+      } else if (event.target.classList[1] === 'deleteBTN') {
+        deletePreviousData(parseInt(event.target.classList[2]));
       }
     }
   }
@@ -77,12 +68,8 @@ document.addEventListener('mousedown', (event) => {
 
   if (event.button === 0) {
     // trigger workplace scrolling
-    if (!workplaceScrolling) {
-      if (target.id === 'workplace-scroller-down') {
-        scrollWorkplace('down');
-      } else if (target.id === 'workplace-scroller-up') {
-        scrollWorkplace('up');
-      }
+    if (!workplaceScrolling && target.classList[0] === 'scroller') {
+      scrollWorkplace(target.classList[2]);
     }
   }
 });

@@ -1,6 +1,5 @@
 $(document).ready(() => {
-  setOverflowHiderHeight();
-  loadAllSlots();
+  reLoadAllSlots();
 
   window.setTimeout(() => {window.scrollTo(0, 0)}, 100);
 });
@@ -90,19 +89,43 @@ const setupDatasetsAlertBuffer = (result) => {
   else return false;
 }
 
-const loadAllSlots = () => {
+// create and return a new saved data slot by the given index
+const newSlot = (index) => {
+  let slot = document.createElement('span');
+  let loader = document.createElement('span');
+  let deleteBTN = document.createElement('span');
+
+  slot.id = `previousData-slot-${index}`;
+  slot.classList.add('previousData');
+  slot.classList.add('slot');
+  slot.classList.add(index);
+
+  loader.id = `previousData-loader-${index}`;
+  loader.classList.add('previousData');
+  loader.classList.add('loader');
+  loader.classList.add(index);
+  loader.classList.add('btntyp1');
+  loader.innerHTML = `Saved Data no ${index}`
+
+  deleteBTN.id = `previousData-deleteBTN-${index}`;
+  deleteBTN.classList.add('previousData');
+  deleteBTN.classList.add('deleteBTN');
+  deleteBTN.classList.add(index);
+  deleteBTN.classList.add('btntyp1');
+
+  slot.appendChild(loader);
+  slot.appendChild(deleteBTN);
+
+  return slot;
+}
+
+const reLoadAllSlots = () => {
+  let container = $('#previousData-container')[0];
+  container.innerHTML = '';
+
   getObject(DBName, 'user', ver, 'info', (userObject) => {
     for (let i = 0; i < userObject.totalDataSaves; i++) {
-      let newSlot = document.createElement('span');
-
-      newSlot.id = `previousData-slot-${i + 1}`;
-      newSlot.classList.add('previousData');
-      newSlot.classList.add('slot');
-      newSlot.classList.add(i + 1);
-      newSlot.classList.add('btntyp1');
-      newSlot.innerHTML = `Dataset No : ${i + 1}`;
-  
-      $('#previousData-container')[0].appendChild(newSlot);
+      container.appendChild(newSlot(i + 1));
     }
   });
 }

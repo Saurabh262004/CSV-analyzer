@@ -98,6 +98,11 @@ const goToURL = (url) => {
   window.location.href = url;
 }
 
+// open a new tab with the given url
+const newTab = (url) => {
+  window.open(url, '_blank');
+}
+
 // test
 const test = (test) => {
   console.log(test);
@@ -113,14 +118,4 @@ const canvasDimConfigure = (canvasID, widthMultiplier=1, heightMultiplier=1) => 
   let canvas = $('#'+canvasID)[0];
   canvas.width = canvas.getClientRects()[0].width * widthMultiplier;
   canvas.height = canvas.getClientRects()[0].height * heightMultiplier;
-}
-
-// set the overflow hider height so the user can't see graph container overflow
-const setOverflowHiderHeight = () => {
-  let
-    graphContainerHeight = $('#graph-container-inner-box')[0].getClientRects()[0].height,
-    contentHeight = $('#main-content')[0].getClientRects()[0].height,
-    footerHeight = $('#main-footer')[0].getClientRects()[0].height;
-
-  $('#main-overflow-hider')[0].style.height = (graphContainerHeight - (contentHeight + footerHeight)) + 'px';
 }

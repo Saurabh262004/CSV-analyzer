@@ -1,10 +1,25 @@
 :root{
-  --screenHeight: 115vh;
+  --screenHeight: 110vh;
   --contentHeight: 90vh;
   --controlPanelRatio: 25%;
   --headerHeight: calc(100vh - var(--contentHeight));
   --configWidth: 20vw;
   --footerHeight: calc(var(--screenHeight) - 100vh);
+}
+
+a{
+  color: #eee;
+  text-decoration: none;
+  transition: ease .2s;
+  font-weight: 600;
+
+  &:visited{
+    color: #eee;
+  }
+
+  &:hover{
+    color: #b4ecee;
+  }
 }
 
 *{
@@ -40,12 +55,18 @@ body{
 .main.logo{
   display: block;
   position: absolute;
-  left: 0;
+  left: 1%;
   top: 0;
   height: var(--headerHeight);
-  aspect-ratio: 2/1;
-  background-color: #64186e;
+  aspect-ratio: 1/1;
+  /* background-color: #64186e; */
   cursor: pointer;
+  background-image: url('../images/logo.png');
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 100%;
+  transform: rotate(-45deg);
 }
 
 .main.content{
@@ -84,10 +105,6 @@ body{
   z-index: 9999;
   transition-delay: 1s;
   transition: ease-out .2s;
-
-  /* &:hover{
-    height: 3vw;
-  } */
 }
 
 .main.scroller.up{
@@ -100,28 +117,4 @@ body{
   border-bottom-right-radius: 1vh;
   transition-delay: 1s;
   transition: ease-out .2s;
-
-  /* &:hover{
-    height: 3vw;
-    bottom: calc(var(--footerHeight) - 3vw);
-  } */
-}
-
-.main.footer{
-  display: block;
-  position: relative;
-  width: 100%;
-  height: var(--footerHeight);
-  background-color: #2d2d2d;
-  z-index: 10;
-}
-
-.main.overflow-hider{
-  display: block;
-  position: absolute;
-  top: var(--screenHeight);
-  left: 0px;
-  width: 100%;
-  height: 0;
-  background-color: #f00;
 }
