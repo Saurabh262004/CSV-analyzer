@@ -51,6 +51,10 @@ document.addEventListener('click', (event) => {
       break;
     case 'save-button' : saveCurrentData();
       break;
+    case 'logout-button' : confirmLogout();
+      break;
+    case 'logout-img' : confirmLogout();
+      break;
     default : {
       if (event.target.classList[1] === 'loader') {
         loadPreviousData(parseInt(event.target.classList[2]));

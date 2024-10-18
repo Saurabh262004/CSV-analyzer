@@ -311,3 +311,15 @@ const downloadJsonData = (jsonData, indent=0) => {
   link.click();
   document.body.removeChild(link);
 }
+
+//confirm if the user really wants to logout
+const confirmLogout = () => {
+  customAlert.alert('confirmLogout');
+}
+
+// delete the indexedDB and logout the user
+const logout = (result) => {
+  if (result !== 'yes') return false;
+  deleteDatabase(DBName);
+  window.setTimeout(() => {window.location.reload()}, 500);
+}

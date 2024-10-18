@@ -182,14 +182,20 @@ const getObjectsByIndex = async (DBName, storeName, version, indexName, keys, ca
   });
 }
 
-const deleteDatabase = (databaseName) => {
-  const request = indexedDB.deleteDatabase(databaseName);
+const deleteDatabase = (DBName, callback) => {
+  const request = indexedDB.deleteDatabase(DBName);
 
-  request.onsuccess = function() {
+  request.onsuccess = () => {
     console.log('Database deleted successfully');
+    if (typeof callback === 'function') {
+      callback('success');
+    }
   };
 
-  request.onerror = function() {
+  request.onerror = () => {
     console.log('Error deleting database');
+    if (typeof callback === 'function') {
+      callback('error');
+    }
   };
 }
