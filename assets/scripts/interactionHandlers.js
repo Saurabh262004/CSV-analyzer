@@ -323,3 +323,12 @@ const logout = (result) => {
   deleteDatabase(DBName);
   window.setTimeout(() => {window.location.reload()}, 500);
 }
+
+// set the backgroundColor style property of a given element
+const setTheme = (target, value) => {
+  console.log(target, value);
+}
+
+const saveTheme = () => {}
+
+const resetTheme = () => {}

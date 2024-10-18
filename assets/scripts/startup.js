@@ -136,12 +136,11 @@ const reLoadAllSlots = () => {
   customAlert.new([25, 20], [37.5, 25], "#d35252", "111", ['ok'], true, 'invalidFileType', '%', 'Pleas upload a .csv file', '3.5vh');
   customAlert.new([25, 20], [37.5, 25], "#d35252", "111", ['ok'], true, 'unknownError', '%', 'Something unexpected happened (Please check console for additional info)', '2.5vh');
   customAlert.new([25, 20], [37.5, 25], "#d35252", "111", ['ok'], true, 'noDataFound', '%', 'The file doesn\'t contain any data', '3.5vh');
-  customAlert.new([25, 20], [37.5, 25], "#d35252", "111", ['ok'], true, 'logoutFail', '%', 'Something went wrong while trying to logout Please try again later', '3.5vh');
 }
 //warnings
 {
   customAlert.new([25, 20], [37.5, 25], "#d8c34e", "111", ['yes', 'no'], true, 'inconsistentData', '%', 'Some datapoints in the datasets are not numbers.\nWould you still like to continue?', '2.5vh', setupDatasetsAlertBuffer);
-  customAlert.new([25, 20], [37.5, 25], "#d8c34e", "111", ['yes', 'no'], true, 'confirmLogout', '%', 'Performing this action will erase all your data from the database.\nAre you sure you want to Log Out?', '2.5vh', logout);
+  customAlert.new([28, 25], [37.5, 25], "#d8c34e", "111", ['yes', 'no'], true, 'confirmLogout', '%', 'Performing this action will erase all your data from the database.\nAre you sure you want to Log Out?', '2.5vh', logout);
 }
 
 // customAlert.alert('invalidFileType');

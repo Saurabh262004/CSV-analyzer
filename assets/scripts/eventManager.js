@@ -26,7 +26,26 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
-// click event controls
+// the function that runs when the default in switch at click event is ran
+const clickDefault = (event) => {
+  let trg = event.target;
+
+  if (trg.classList[1] === 'loader') {
+    loadPreviousData(parseInt(trg.classList[2]));
+  } else if (trg.classList[1] === 'deleteBTN') {
+    deletePreviousData(parseInt(trg.classList[2]));
+  } else if (trg.classList[0] === 'TextColorToggle' && trg.classList[1] === 'button') {
+    if (trg.classList[3] === 'W') {
+      trg.classList.remove('W');
+      trg.classList.add('B');
+    } else if (trg.classList[3] === 'B') {
+      trg.classList.remove('B');
+      trg.classList.add('W');
+    }
+  }
+}
+
+// click events
 document.addEventListener('click', (event) => {
   switch (event.target.id) {
     case 'main-profile' : profileConfigLoadUnload();
@@ -45,9 +64,9 @@ document.addEventListener('click', (event) => {
       break;
     case 'graphButton-single' : graphMultipleSets([currentDataIndex]);
       break;
-    case 'downloadJson-button' : downloadJsonData(currentLoadedData, 2);
-      break;
     case 'graphAll-button' : graphMultipleSets();
+      break;
+    case 'downloadJson-button' : downloadJsonData(currentLoadedData, 2);
       break;
     case 'save-button' : saveCurrentData();
       break;
@@ -55,13 +74,11 @@ document.addEventListener('click', (event) => {
       break;
     case 'logout-img' : confirmLogout();
       break;
-    default : {
-      if (event.target.classList[1] === 'loader') {
-        loadPreviousData(parseInt(event.target.classList[2]));
-      } else if (event.target.classList[1] === 'deleteBTN') {
-        deletePreviousData(parseInt(event.target.classList[2]));
-      }
-    }
+    case 'themesApply' : saveTheme();
+      break;
+    case 'themesReset' : resetTheme();
+      break;
+    default : clickDefault(event);
   }
 });
 
@@ -93,6 +110,13 @@ $('#fileUpload-input').change(() => {
 // update currentDataIndex everytime dataIndexSelector input changes
 $('#dataIndexSelector-input').change(() => {
   currentDataIndex = $('#dataIndexSelector-input')[0].value;
+});
+
+// change the theme of the website when the user changes the input value of themes
+$('.themeInput').change((event) => {
+  let trg = event.target;
+  $(`#theme-${trg.classList[1]}`)[0].style.backgroundColor = trg.value;
+  setTheme(trg.classList[1], trg.value);
 });
 
 // update X and Y multipliers

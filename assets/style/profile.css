@@ -5,6 +5,7 @@
   top: 0;
   height: var(--headerHeight);
   width: var(--configWidth);
+  /* background-color: #c75e5e42; */
   transition: ease-out .2s;
 }
 
@@ -40,7 +41,7 @@
   left: calc(var(--headerHeight) + 4%);
   top: 0;
   height: 50%;
-  /* padding-top: 6.5%; */
+  padding-top: 6.5%;
   width: fit-content;
   font-size: 3vh;
   pointer-events: none;
@@ -59,11 +60,23 @@
   z-index: 9999;
   transition: ease-out .2s;
   cursor: auto;
+  color: #eee;
 }
 
 .profile.config.active{
   right: 0;
   transition: ease-out .2s;
+}
+
+.configTitle{
+  display: block;
+  position: relative;
+  width: 100%;
+  top: -8%;
+  height: fit-content;
+  text-align: center;
+  font-size: 3vh;
+  /* background-color: #bacf5d98; */
 }
 
 .config.element{
@@ -74,22 +87,170 @@
   width: 100%;
   height: 10%;
   margin-top: 3vh;
-  background-color: #6b72288f;
+  /* background-color: #6b72288f; */
+}
+
+.theme{
+  display: block;
+  position: relative;
+  width: 12vw;
+  height: 4vh;
+  left: calc((var(--configWidth) - 15vw) / 2);
+  top: -8%;
+  margin-top: 2.5vh;
+  /* background-color: #3b807188; */
+  border: 1px solid #000;
+  border-radius: 1.2vh;
+  font-size: 2.5vh;
+  text-align: center;
+  padding-top: .5vh;
+  transition: ease .2s;
+
+  &:hover{
+    background-color: #eee !important;
+    color: #111;
+  }
+}
+
+.config.element.themes{
+  height: 60%;
+}
+
+.themesInputLabel{
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 1.2vh;
+  cursor: pointer;
+  /* background-color: #afafafb0; */
+}
+
+.themeInput{
+  display: block;
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  right: -12%;
+}
+
+.TextColorToggle.container{
+  display: block;
+  position: absolute;
+  width: 25%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  /* background-color: #8b4c4ca4; */
+}
+
+.TextColorToggle.button{
+  display: block;
+  position: relative;
+  width: 3vh;
+  height: 3vh;
+  top: -2.2%;
+  left: calc(((var(--configWidth) / 4) - 3vh) / 2);
+  margin-top: 4vh;
+  border: 1px solid #000;
+  border-radius: .5vh;
+  cursor: pointer;
+  transition: ease .2s;
+
+  &:hover{
+    background-color: #727272 !important;
+  }
+
+  &:hover > .TextColorToggle.label{
+    opacity: 1;
+    top: -120%;
+  }
+}
+
+.TextColorToggle.button.W{
+  background-color: #eee;
+
+  &:active{
+    background-color: #111 !important;
+  }
+}
+
+.TextColorToggle.button.B{
+  background-color: #111;
+
+  &:active{
+    background-color: #eee !important;
+  }
+}
+
+.TextColorToggle.button.N{
+  background-color: #6b5252 !important;
+  cursor: not-allowed !important;
+
+  &:hover > .TextColorToggle.label{
+    opacity: 0;
+    top: 0;
+  }
+}
+
+.TextColorToggle.label{
+  display: block;
+  position: absolute;
+  width: 20vh;
+  height: fit-content;
+  left: -10vh;
+  top: 0;
+  opacity: 0;
+  font-size: 1.8vh;
+  /* background-color: #e24848b2; */
+  transition: ease .2s;
+  pointer-events: none;
+}
+
+.themesApply, .themesReset{
+  display: block;
+  position: absolute;
+  width: 7vw;
+  height: 3.5vh;
+  color: #eee;
+  padding-top: .5vh;
+  border: 1px solid #000;
+  border-radius: 1vh;
+  text-align: center;
+  cursor: pointer;
+  transition: ease .2s;
+
+  &:hover{
+    background-color: #eee;
+    color: #111;
+  }
+}
+
+.themesApply{
+  left: calc((var(--configWidth) - 16vw) / 2);
+}
+
+.themesReset{
+  right: calc((var(--configWidth) - 16vw) / 2);
 }
 
 .logout.button{
   display: block;
-  position: relative;
-  top: 50%;
-  left: 30%;
-  width: 7vw;
-  height: 3.5vh;
-  padding-top: .5vh;
+  position: absolute;
+  bottom: 5%;
+  left: calc((var(--configWidth) - 8vw) / 2);
+  width: 8vw;
+  height: 4vh;
+  padding-top: .8vh;
   font-size: 2vh;
-  text-indent: 1.5vh;
+  font-weight: 500;
+  text-indent: 2vh;
   background-color: #e7e7e7b4;
+  color: #111;
   cursor: pointer;
-  border-radius: 2vh;
+  border-radius: 1.2vh;
 }
 
 .logout.img{
