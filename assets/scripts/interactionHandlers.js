@@ -329,6 +329,35 @@ const setTheme = (target, value) => {
   console.log(target, value);
 }
 
-const saveTheme = () => {}
+const getTextColorFromClassState = (state) => {
+  if (state === 'W') return '#eee';
+  else if (state === 'B') return '#111';
+}
 
-const resetTheme = () => {}
+const getClassStateFromTextColor = (color) => {
+  if (color === '#eee') return 'W';
+  else if (color === '#111') return 'B';
+}
+
+const saveTheme = () => {
+  console.log('New Theme');
+  let newTheme = {
+    'headerColor' : $('#themeInput-header')[0].value,
+    'controlPanelColor' : $('#themeInput-controlPanel')[0].value,
+    'controlContainersColor' : $('#themeInput-controlContainers')[0].value,
+    'profileConfigColor' : $('#themeInput-profileConfig')[0].value,
+    'graphContainerColor' : $('#themeInput-graphContainer')[0].value,
+    'buttonsColor' : $('#themeInput-Buttons')[0].value,
+    'headerColor_text' : getTextColorFromClassState($('#TextColorToggle-button-header')[0].classList[3]),
+    'controlPanelColor_text' : getTextColorFromClassState($('#TextColorToggle-button-controlPanel')[0].classList[3]),
+    'controlContainersColor_text' : getTextColorFromClassState($('#TextColorToggle-button-controlContainers')[0].classList[3]),
+    'profileConfigColor_text' : getTextColorFromClassState($('#TextColorToggle-button-profileConfig')[0].classList[3]),
+    'buttonsColor_text' : getTextColorFromClassState($('#TextColorToggle-button-Buttons')[0].classList[3])
+  };
+
+  putObject(DBName, 'user', ver, {'id' : 'theme', 'preferencesID' : 'theme', 'default' : false, 'theme' : newTheme}, loadTheme);
+}
+
+const resetTheme = () => {
+  putObject(DBName, 'user', ver, {'id' : 'theme', 'preferencesID' : 'theme', 'default' : true, 'theme' : null}, loadTheme);
+}

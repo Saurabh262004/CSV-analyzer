@@ -5,6 +5,17 @@
   --headerHeight: calc(100vh - var(--contentHeight));
   --configWidth: 20vw;
   --footerHeight: calc(var(--screenHeight) - 100vh);
+  --headerColor: #2d2d2d;
+  --controlPanelColor: #62728f;
+  --controlContainersColor: #9ba3af;
+  --profileConfigColor: #2d2d2d;
+  --graphContainerColor: #4b575c;
+  --buttonsColor: #414141;
+  --headerColor_text: #eee;
+  --controlPanelColor_text: #111;
+  --controlContainersColor_text: #111;
+  --profileConfigColor_text: #eee;
+  --buttonsColor_text: #eee;
 }
 
 a{
@@ -48,7 +59,7 @@ body{
   position: relative;
   width: 100%;
   height: var(--headerHeight);
-  background-color: #2d2d2d;
+  background-color: var(--headerColor);
   z-index: 10;
 }
 
@@ -96,7 +107,7 @@ body{
   color: #eee;
   font-size: 2.6vh;
   text-align: center;
-  background-color: #414141;
+  background-color: var(--buttonsColor);
   border-top-left-radius: 1vh;
   border-top-right-radius: 1vh;
   border-bottom-left-radius: 0;

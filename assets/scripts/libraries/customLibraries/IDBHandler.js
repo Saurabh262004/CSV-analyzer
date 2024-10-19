@@ -34,6 +34,7 @@ GLB_request.onupgradeneeded = () => {
   }
 
   putObject(DBName, 'user', ver, { 'id' : 'info', 'infoID' : 'firstTimeUser', 'firstTimeUser' : true });
+  putObject(DBName, 'user', ver, {'id' : 'theme', 'preferencesID' : 'theme', 'default' : true, 'theme' : null});
 }
 
 GLB_request.onsuccess = () => {
@@ -126,6 +127,10 @@ const getObject = async (DBName, storeName, version, key, callback) => {
         reject(event.error);
         console.error('There was an error with the query!');
         console.error(event.target);
+
+        if (typeof callback === 'function') {
+          callback(false);
+        }
       }
 
       query.oncomplete = () => {

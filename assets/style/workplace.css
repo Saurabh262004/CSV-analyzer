@@ -6,7 +6,7 @@
   width: 100%;
   height: 100%;
   /* background: linear-gradient(to bottom, #cbd381, #e06edb); */
-  background-color: #4b575c;
+  background-color: var(--graphContainerColor);
   z-index: 5;
 }
 

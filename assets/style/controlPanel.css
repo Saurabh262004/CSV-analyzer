@@ -3,14 +3,14 @@
   position: absolute;
   font-size: 2.3vh;
   text-align: center;
-  background-color: #414141;
-  color: #eee;
+  background-color: var(--buttonsColor);
+  color: var(--buttonsColor_text);
   border-radius: 1vh;
   cursor: pointer;
   transition: ease .2s;
 
   &:hover{
-    box-shadow: #414141 0 0 .3vh .2vh;
+    box-shadow: var(--buttonsColor) 0 0 .3vh .2vh;
   }
 
   &:active{
@@ -27,7 +27,7 @@
   left: 0;
   width: var(--controlPanelRatio);
   height: var(--contentHeight);
-  background-color: #62728f;
+  background-color: var(--controlPanelColor);
 }
 
 .fileUpload.container{
@@ -75,7 +75,7 @@
   aspect-ratio: 1/1;
   right: 3%;
   top: 3.2%;
-  background-color: #9ba3af;
+  background-color: var(--controlContainersColor);
   border-radius: 1.2vh;
   cursor: pointer;
 
@@ -103,6 +103,7 @@
   width: 300%;
   height: 70%;
   text-align: center;
+  color: var(--controlPanelColor_text);
   transition: ease .15s;
   font-size: 2.2vh;
   cursor: pointer;
@@ -143,8 +144,8 @@
   width: 50%;
   height: 5%;
   padding-top: 1vh;
-  background-color: #414141;
-  color: #eee;
+  background-color: var(--buttonsColor);
+  color: var(--buttonsColor_text);
   border-radius: 1.2vh;
 }
 
@@ -187,7 +188,7 @@
   left: 3%;
   width: 94%;
   aspect-ratio: 1/.5;
-  background-color: #9ba3af;
+  background-color: var(--controlContainersColor);
   border-radius: 1.2vh;
 }
 
@@ -198,9 +199,9 @@
   left: 5%;
   height: 20%;
   width: 60%;
-  background-color: #414141;
+  background-color: var(--buttonsColor);
   padding-top: 1vh;
-  color: #eee;
+  color: var(--buttonsColor_text);
   font-size: 2.3vh;
   text-indent: 4%;
   border-radius: 1vh;
@@ -226,6 +227,7 @@
   display: block;
   position: absolute;
   left: 5%;
+  color: var(--controlContainersColor_text);
 }
 
 .rangeContainer.X{
@@ -285,7 +287,8 @@
   top: 50%;
   text-align: center;
   font-size: 2.5vh;
-  background-color: #9ba3af;
+  color: var(--controlContainersColor_text);
+  background-color: var(--controlContainersColor);
   border-radius: 1.2vh;
 }
 
@@ -296,7 +299,7 @@
   height: 40%;
   left: 3%;
   top: 50%;
-  background-color: #9ba3af;
+  background-color: var(--controlContainersColor);
   border-radius: 1.2vh;
   overflow: scroll;
   padding-top: 4vh;

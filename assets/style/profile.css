@@ -45,7 +45,7 @@
   width: fit-content;
   font-size: 3vh;
   pointer-events: none;
-  color: #eee;
+  color: var(--headerColor_text);
   /* background-color: #a8be5996; */
 }
 
@@ -56,7 +56,7 @@
   right: calc((var(--configWidth) + var(--headerHeight)) * -1);
   width: var(--configWidth);
   height: var(--contentHeight);
-  background-color: #2d2d2d;
+  background-color: var(--profileConfigColor);
   z-index: 9999;
   transition: ease-out .2s;
   cursor: auto;
@@ -75,6 +75,7 @@
   top: -8%;
   height: fit-content;
   text-align: center;
+  color: var(--profileConfigColor_text);
   font-size: 3vh;
   /* background-color: #bacf5d98; */
 }
